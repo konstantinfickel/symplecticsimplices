@@ -2,6 +2,8 @@
 
 My bachelor thesis in mathematics supervised by [professor Cieliebak](https://www.math.uni-augsburg.de/prof/geo/mitarbeiter/cieliebak/) at the University of Augsburg.
 
+![Mapping between two 4-simplices](img/cover/00.png)
+
 ## Abstract
 
 This bachelor thesis shows that two 2n-simplices Δ, Δ' are equal up affine symplectomorphism if and only if the symplectic areas of their 2-dimensional subsimplices coincide. This is a generalization of [CH14] which gave this result for n = 2.
