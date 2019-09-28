@@ -1,0 +1,96 @@
+\documentclass[../SymplecticSimplices.tex]{subfiles}
+
+\begin{document}
+\section{Symplectic Area and Volume}
+
+Another concept necessary for the next chapter is the symplectic volume, so in this chapter a definition will be provided along with some of its basic properties.
+
+As the \(2k\)-dimensional \textit{symplectic volume} of \( A \subseteq \mathbb{R}^{2n} \) we define \( \textnormal{Vol}^{2k}_\textnormal{symp} \left( A \right) = \int_{A} \frac{\omega^k}{k!} \). A \( 2 \)-dimensional symplectic volume is called \textit{symplectic area}. The following Lemma shows that the full-dimensional symplectic volume coincides with the euclidian volume:
+
+\begin{lemma}
+  \label{lemma:symplecticvolume}
+  Let \( e_1, \dots, e_{2n} \in \mathbb{R}^{2n} \).\\
+  Then \( \frac{1}{n!} \cdot \omega^{n} \left( e_1, \dots, e_{2n} \right) = \textnormal{det} \left(
+\begin{bmatrix}
+  \vdots & &\vdots \\
+  e_1 & \dots & e_{2n}\\
+ \vdots & & \vdots
+\end{bmatrix}
+  \right) \)
+\end{lemma}
+
+\begin{proof}
+  Since by definition \( \omega^{n} \left( e_1, \dots, e_{2n} \right) \) is an alternating and multilinear mapping from the vector space \( \mathbb{R}^{2n} \) to \( \mathbb{R} \), it is a determinant function as defined in \cite[Section 4.3, Definition 1]{bosch}. Due to \cite[Section 4.3, Lemma 9]{bosch} there has to exist a scaling factor \( \alpha \in \mathbb{R} \) such that \( \alpha \cdot \omega^{n} = \textnormal{det} \).
+
+  To prove that \( \alpha = \frac{1}{n!} \), we compare the values for the standard symplectic basis \( f^{\textnormal{st}}_1, \dots, f^{\textnormal{st}}_{2n} \): \[ \textnormal{det} \left(
+\begin{bmatrix}
+  \vdots & &\vdots \\
+  f^{\textnormal{st}}_1 & \dots & f^{\textnormal{st}}_{2n}\\
+ \vdots & & \vdots
+\end{bmatrix}
+\right)= \textnormal{det} \left(
+\begin{bmatrix}
+  1 & 0 & \dots & 0 \\
+  0 & 1 & \ddots & \vdots \\
+  \vdots & \ddots & \ddots & 0 \\
+  0 & \dots & 0 & 1 \\
+\end{bmatrix}
+\right) = 1 = \frac{1}{n!} \cdot n! = \frac{1}{n!} \cdot \omega^{n} \left( f^{\textnormal{st}}_1, \dots, f^{\textnormal{st}}_{2n} \right)
+  \]
+\end{proof}
+
+The rest of this section will prepare two general, rather technical statements about the symplectic volume that will be required in the following section. The first one of them will show how to express \( \omega^k \) in terms of a sum of products of \( \omega \) for given vectors:
+
+\begin{lemma}
+  \label{lemma:splitomegatothepowerofk}
+  Let \( e_1, \dots, e_{2k} \in \mathbb{R}^{2n} \) and \( n \geq k \in \mathbb{N} \).\\
+  Then \( \omega^k \left( e_{1}, \dots, e_{2k} \right) = \frac{1}{2^k} \cdot \sum \limits_{\pi \in S_{2k}} \textnormal{sgn} \left( \pi \right) \prod \limits_{m = 1}^{k} \omega \left(e_{\pi \left( 2m-1 \right)}, e_{\pi \left( 2m \right)} \right) \)
+\end{lemma}
+
+\begin{proof}
+  This statement can be proven by induction using for the induction base \( k = 1 \) the equality \( \omega \left( e_1, e_2 \right) = \frac{1}{2} \cdot \left( \omega \left( e_1, e_2 \right) - \omega \left( e_2, e_1 \right) \right) \) and the following induction step \( k-1 \rightarrow k \):
+
+  \begin{align*}
+    & \omega^k \left(e_{1}, e_{2}, \dots, e_{2k} \right) \\
+    & \eqcom{1} \frac{1}{2! \cdot \left( 2k-2 \right)!} \cdot \sum\limits_{\pi \in S_{2k}} \textnormal{sgn} \left( \pi \right) \cdot \omega\left(e_{\pi \left( 1 \right)}, e_{\pi \left( 2 \right)}\right) \cdot \omega^{k-1}\left(e_{\pi \left( 3 \right)}, \dots, e_{\pi \left( 2k \right)} \right) \\
+    & \eqcom{2} \frac{1}{2! \cdot \left( 2k-2 \right)!} \cdot \sum\limits_{\pi \in S_{2k}} \textnormal{sgn} \left( \pi \right) \cdot \omega\left(e_{\pi \left( 1 \right)}, e_{\pi \left( 2 \right)} \right) \cdot \left( \frac{1}{2^{k-1}} \cdot \sum \limits_{\tau \in S_{2k-2}} \textnormal{sgn} \left( \tau \right) \prod \limits_{m = 2}^{k} \omega\left(e_{\tau \left( \pi \left( 2m-1 \right) \right)}, e_{\tau \left( \pi \left( 2m \right) \right)} \right) \right) \\
+    & = \frac{1}{2! \cdot \left( 2k-2 \right)!} \cdot \frac{1}{2^{k-1}} \cdot \sum \limits_{\tau \in S_{2k-2}} \sum\limits_{\pi \in S_{2k}} \textnormal{sgn} \left( \pi \circ \tau \right) \cdot \omega\left(e_{\pi \left( 1 \right)}, e_{\pi \left( 2 \right)} \right) \cdot \left( \prod \limits_{m = 2}^{k} \omega\left(e_{\tau \left( \pi \left( 2m-1 \right) \right)}, e_{\tau \left( \pi \left( 2m \right) \right)} \right) \right) \\
+    & \eqcom{3} \frac{1}{2^k \cdot \left( 2k-2 \right)!} \cdot \left( 2k-2 \right)! \cdot \sum\limits_{\pi \in S_{2k}} \textnormal{sgn} \left( \pi \right) \cdot \omega\left(e_{\pi \left( 1 \right)}, e_{\pi \left( 2 \right)} \right) \cdot \left( \prod \limits_{m = 2}^{k} \omega\left(e_{\pi \left( 2m-1 \right)}, e_{\pi \left( 2m \right)} \right) \right) \\
+    & = \frac{1}{2^k} \cdot \sum\limits_{\pi \in S_{2k}} \textnormal{sgn} \left( \pi \right) \prod \limits_{m = 1}^{k} \omega\left(e_{i_{\pi \left( 2m-1 \right)}}, e_{i_{\pi \left( 2m \right)}} \right)
+  \end{align*}
+
+  In step \circled{1} we used the formula for the wedge-product as stated for example in \cite[Section 8.1]{jaenich}, then in \circled{2} we applied the induction hypothesis. The sum over all the permutations \( \tau \in S_{2k-2} \) just sums up the same values in a reordered way \( \left( 2k - 2 \right)! \) times, so that we can use this number as a factor in step \circled{3}.
+\end{proof}
+
+Another statement that will become useful in the next section is an equation relating the volume of a parallelepiped with those of some lower-dimensional parallelepipeds spanned by a subset of its edges:
+
+\begin{lemma}
+  \label{lemma:subsimplexproduct}
+  Let \( f_1, \dots, f_{2k}, u, v, w, x \in \mathbb{R}^{2n} \), \( k \in \mathbb{N}_0 \). Then:
+\begin{equation}
+  \label{equation:subsimplexproduct}
+  \begin{split}
+  & \frac{1}{\left(k+2\right)!} \: \omega^{k+2} \left( f_1, \dots, f_{2k}, u, v, w, x \right) \cdot \frac{1}{k!} \: \omega^{k} \left( f_1, \dots, f_{2k} \right)
+  \\ & = \frac{1}{\left(k+1\right)!} \: \omega^{k+1} \left( f_1, \dots, f_{2k}, u, v \right) \cdot \frac{1}{\left(k+1\right)!} \: \omega^{k+1} \left( f_1, \dots, f_{2k}, w, x \right)
+  \\ & - \frac{1}{\left(k+1\right)!} \: \omega^{k+1} \left( f_1, \dots, f_{2k}, u, w \right) \cdot \frac{1}{\left(k+1\right)!} \: \omega^{k+1} \left( f_1, \dots, f_{2k}, v, x \right)
+  \\ & + \frac{1}{\left(k+1\right)!} \: \omega^{k+1} \left( f_1, \dots, f_{2k}, u, x \right) \cdot \frac{1}{\left(k+1\right)!} \: \omega^{k+1} \left( f_1, \dots, f_{2k}, v, w \right)
+  \end{split}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+  We may assume that \( \omega \left( a, f_i \right) = 0 \) for \( a \in \left\lbrace u, v, w, x \right\rbrace \) and \( i \in \left\lbrace 1, \dots, 2k \right\rbrace \), because we can change \( a \) to \( a' = a - \sum\limits_{i=1}^{2k} \omega \left( a, f_i \right) f_i \) without altering any of the factors.
+
+  If \(f_1, \dots, f_{2k}\) are linearly dependent, all the parts of the equation are \( 0 \), which immediately verifies it. If the spanned subspace of \( \left< f_1, \dots, f_{2k} \right> \) is not symplectic, there exists a vector \( e \in \left< f_1, \dots, f_{2k} \right> \setminus \left\lbrace 0 \right\rbrace \) with \( \omega \left( e, a \right) = 0 \) for every \( a \in \left< f_1, \dots, f_{2k} \right> \). Since \( e \in \left< f_1, \dots, f_{2k} \right> \), there exist \( \alpha_i \in \mathbb{R} \) such that \( e = \sum_{i=1}^{2k} \alpha_i f_i \). Since \( e \) is non-zero, for one \( j \) the factor \( \alpha_j \) has to be non-zero as well. Therefore \( f_j \) can be transformed into \( e \) by addition of other vectors and scaling by \( \alpha_j \neq 0 \) without breaking the equation or multiplying both sides with \( 0 \). Since only \( f_i \) are added, it still holds that \( \omega \left( a, e \right) = 0 \) for \( a \in \left\lbrace u, v, w, x \right\rbrace \). But when expanding any factor from equation \eqref{equation:subsimplexproduct} using Lemma \ref{lemma:splitomegatothepowerofk}, there exists in every summand a factor \( \omega \left( \bullet, \bullet \right) \) that contains \( e \), so that both sides evaluate to \( 0 \), verifying the equation in this case, too.
+  
+  So now consider the remaining case that the subspace \( \left< f_1, \dots, f_{2k} \right> \) is symplectic and \( f_1, \dots, f_{2k} \) are linearly independent. Then we can transform the basis into a symplectic basis without breaking the equation using Lemma \ref{lemma:symplecticbasis}.
+Therefore we may assume that \( f_1, \dots, f_{2k} \) are the first \( 2k \) vectors of a symplectic basis.
+
+  Using Lemma \ref{lemma:splitomegatothepowerofk} we can now show the following equalities, which together complete the proof: Because the whole product becomes \( 0 \) if the basis pairs are mixed up, we only have to consider the permutations where all the basis pairs are in the same \( \omega \left( \bullet, \bullet \right) \), so that we have \( \omega \left( f_1, \dots,  f_{2k} \right) = k! \),
+  \( \omega \left( f_1, \dots, f_{2k}, u ,v \right) = (k+1)! \cdot \omega\left( f_1, f_2 \right) \cdot \dots \cdot \omega\left( f_{k-1}, f_k \right) \cdot \omega\left( u, v \right) \) (and the respective statements for the other factors on the right side) and
+    \begin{align*}
+      \omega \left( f_1, \dots, f_{2k}, u, v, x, y \right) = & (k+2)! \cdot \omega\left( f_1, f_2 \right) \cdot \dots \cdot \omega\left( f_{k-1}, f_k \right) \\ \cdot & \left( \omega\left( u, v \right) \cdot \omega\left( x, y \right) - \omega\left( u, x \right) \cdot \omega\left( v, y \right) +  \omega\left( u, y \right) \cdot \omega\left( v, x \right) \right)
+    \end{align*}
+\end{proof}
+\end{document}
+

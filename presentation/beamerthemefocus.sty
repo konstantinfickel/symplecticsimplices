@@ -1,0 +1,58 @@
+\mode<presentation>
+
+% Requirement
+\RequirePackage{tikz}
+\RequirePackage{palatino}
+
+% Settings
+\useinnertheme{default}
+\useoutertheme[subsection=false,shadow]{miniframes}
+\usecolortheme{focus}
+
+\usefonttheme{serif}
+\setbeamerfont{title like}{shape=\scshape}
+\setbeamerfont{frametitle}{shape=\scshape}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[default]
+
+% This is probably an ugly hack. Is there any better way to do this?
+\newcommand{\darkframe}[1]{
+\bgroup
+\setbeamercolor{background canvas}{bg=black}
+\setbeamercolor*{structure}{fg=white}
+\setbeamercolor*{normal text}{fg=white}
+
+\setbeamercolor{block title}{fg=black,bg=white}
+
+\setbeamercolor{block body alerted}{fg=white,bg=block title alerted.bg!10!black}
+\setbeamercolor{block body}{fg=white,bg=block title.bg!10!black}
+\setbeamercolor{block body example}{fg=white,bg=block title example.bg!10!black}
+#1
+\egroup
+}
+
+% https://tex.stackexchange.com/questions/37127/how-to-remove-some-pages-from-the-navigation-bullets-in-beamer
+\makeatletter
+\let\beamer@writeslidentry@miniframeson=\beamer@writeslidentry
+\def\beamer@writeslidentry@miniframesoff{%
+  \expandafter\beamer@ifempty\expandafter{\beamer@framestartpage}{}% does not happen normally
+  {%else
+    % removed \addtocontents commands
+    \clearpage\beamer@notesactions%
+  }
+}
+\newcommand*{\miniframeson}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframeson}
+\newcommand*{\miniframesoff}{\let\beamer@writeslidentry=\beamer@writeslidentry@miniframesoff}
+\makeatother
+
+\newcommand{\blankframe}[0]{
+\miniframesoff
+\darkframe{
+  \begin{frame}
+  \end{frame}
+}
+\miniframeson
+}
+
+\mode<all>

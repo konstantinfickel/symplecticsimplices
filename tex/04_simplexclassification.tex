@@ -1,0 +1,339 @@
+\documentclass[../SymplecticSimplices.tex]{subfiles}
+
+\begin{document}
+\section{Classification of Linear Symplectic Simplices}
+\label{section:simplexclassification}
+
+In this main section we are going to consider a nondegenerate \( 2n \)-simplex \( \Delta = \textnormal{conv} \left\lbrace v_0, v_1, \dots v_n \right\rbrace \subset \mathbb{R}^{2n} \). The objective of this section is to find and prove a condition for equality of two simplices up to affine symplectomorphism.
+
+To denote subsimplices of \( \Delta \) we use \( \Delta_{\alpha} = \Delta_{\alpha_0, \dots, \alpha_m} = \textnormal{conv} \left\lbrace \left. v_{\alpha_i} \right| i \in \left\lbrace 0, \dots, m \right\rbrace \right\rbrace \subset \mathbb{R}^{2n} \) with \( \alpha = \left( \alpha_0, \dots, \alpha_m \right) \in I_m = \left\lbrace \left. \alpha = \left( \alpha_0, \dots, \alpha_{m} \right) \in \left\lbrace 0, \dots, 2n \right\rbrace^{m+1} \right| \alpha_0 < \alpha_1 < \dots < \alpha_m \right\rbrace \).
+
+The edges adjacent to \(v_0 \) are named \( e_i = v_i - v_0 \) for \( i \in \left\lbrace 1, \dots, 2n \right\rbrace \). They form a basis of \( \mathbb{R}^{2n} \), which we use to orient the simplex \( \Delta \). For \( 2k \)-subsimplices \( \Delta_{\alpha} \) (with \( \alpha = \left( \alpha_0, \dots, \alpha_{2k} \right) \in I_{2k} \)) we can calculate the symplectic volume of the simplex \( \Delta_\alpha \) by \( \omega_{\alpha} = \omega_{\alpha_0, \dots, \alpha_{2k}} := \int_{\Delta_{\alpha}} \frac{\omega^k}{k!} \).
+
+Closedness of \( \omega \) implies that for a 3-simplex \( \Delta_{i_0, i_1, i_2, i_3} \) with \( 0 \leq i_0 < i_1 < i_2 < i_3 \leq 2n \), the areas sum up to \( 0 \):
+
+\begin{equation}
+  \label{equation:3simplexzero}
+  \omega_{i_0, i_1, i_2} - \omega_{i_0, i_1, i_3} + \omega_{i_0, i_2, i_3} - \omega_{i_1, i_2, i_3} = \int_{\partial \Delta_{i_0, i_1, i_2, i_3}} \omega \stackrel{\text{Stokes}}{=} \int_{\Delta_{i_0, i_1, i_2, i_3}} \textnormal{d}\omega = 0
+\end{equation}
+
+There exist \( \binom{2n+1}{4} \) such equations out of which \( \binom{2n}{3} \) (one for every \( \omega_{i_1, i_2, i_3} \) with \( 0 < i_1 < i_2 < i_3 < 2n \)) are linearly independent. Those amounts will be explained in detail in Appendix \ref{appendix:equationamount}.
+
+Because of equation \eqref{equation:3simplexzero}, the symplectic area of all the 2-dimensional sides that don't contain \( v_0 \) can be obtained as sums of sides that are adjacent to the vertex \( v_0 \):
+\begin{equation}
+  \label{equation:bordercondition}
+  \begin{array}{lr}
+    \omega_{i_1, i_2, i_3} = \omega_{0, i_1, i_2} - \omega_{0, i_1, i_3} + \omega_{0, i_2, i_3} & \textnormal{ for } 0 < i_1 < i_2 < i_3 \leq 2n
+  \end{array}
+\end{equation}
+
+For simplicity, from now on we will consider the area of the parallelepiped spanned by the edges adjacent to \( v_0 \) of the simplex, which we will denote by \( \nu_{i_1, \dots, i_{2k}} = \left( 2k \right)! \cdot \omega_{0, i_1, \dots, i_{2k}} \) for \( k \in \mathbb{N} \). The reason for the factor \( \left( 2k \right) ! \) is, that the volume of a parallelepiped spanned by edges \( e_1, \dots, e_{2n} \) is \( n! \) times the volume of the simplex spanned by those edges. Note that with the \( \nu \) the simple relationship \( \nu_{i_1, \dots i_{2k}} = \frac{1}{k!} \omega^k \left( e_{i_1}, \dots e_{i_{2k}} \right) \) holds for \( 0 < i_1 < \dots < i_{2k} \leq 2n \), where the \( \frac{1}{k!} \) is introduced as part of the symplectic volume form \( \frac{\omega^k}{k!} \). To allow for arbitrary orderings of the edges, we define for \( \pi \in S_{2k} \) the area \( \nu_{\pi \left(\alpha_1\right), \dots, \pi \left(\alpha_{2k}\right)} = \textnormal{sgn} \left( \pi \right) \cdot \nu_{\alpha_1, \dots, \alpha_{2k}} \) using the fact that \( \omega^k \) is alternating.
+
+Since according to Lemma \ref{lemma:symplecticvolume} the symplectic volume is equal to the euclidean volume in \( \mathbb{R}^{2n} \), we know that \( \Delta \) being nondegenerate is equivalent to \( \frac{1}{n!} \cdot \omega \left( e_1, \dots, e_{2n} \right) \neq 0 \). Using Lemma \ref{lemma:splitomegatothepowerofk} we can now state the following condition on the \( \nu_{i,j} \) and \( \omega_{i,j,k} \) for \( \Delta \) to be nondegenerate:
+
+\begin{equation}
+\begin{split}
+  \label{equation:nondegeneracy}
+   0 \neq \nu_{1, \dots, 2n} & = \frac{1}{n!} \cdot \omega^{n} \left( e_1, \dots, e_{2n} \right) = \frac{1}{n!\cdot2^n} \sum\limits_{\pi \in S_n} \left( \prod\limits_{k=1}^{n} \omega \left( e_{\pi \left(2k-1\right)}, e_{\pi \left(2k\right)} \right) \right) \\
+                            & = \frac{1}{n!\cdot2^n} \sum\limits_{\pi \in S_n} \left( \prod\limits_{k=1}^{n} \nu_{\pi \left(2k-1\right), \pi \left(2k\right)} \right) = \frac{1}{n!} \sum\limits_{\pi \in S_n} \left( \prod\limits_{k=1}^{n} \omega_{0, \pi \left(2k-1\right), \pi \left(2k\right)} \right)
+\end{split}
+\end{equation}
+
+The main ingredient towards classifying symplectic simplices is to find a way to construct the edges of a \( 2n \)-simplex from given areas of its \( 2 \)-dimensional subsimplices. So for a symplectic basis \( f_1, \dots, f_{2n} \) of \( \mathbb{R}^{2n} \) we construct linearly independent vectors \( e_1, \dots, e_{2n} \) with \( \omega \left( e_i, e_j \right) = \nu_{i,j} \).
+
+Our technique to do so is to adjust the value of \( \omega \left( e_i, e_j \right) = \nu_{i,j} \) in the step \( e_j^i \) (for \( i < j \)) maintaining the values of all the other combinations. To allow for adjusting the value with the next vector, for every odd \( j \) a vector from a new symplectic basis pair will be added to the vector \( e_j \):
+
+\begin{equation}
+  \label{equation:symptobase:vectors}
+  \begin{array}{llr}
+    e_j^0 = 0 & & \textnormal{ for } j \in \left\lbrace 1, \dots, 2n \right\rbrace \\
+    e_j^i = e_j^{i-1} + \frac{1}{\omega\left( e_i, f_i \right)} \left( \nu_{i,j} - \omega \left( e_i, e_j^{i-1} \right) \right) f_i & & \textnormal{ for } i,j \in \left\lbrace 1, \dots, 2n \right\rbrace \textnormal{ and } i < j\\
+    e_j = e_j^j = \left\lbrace\begin{array}{lr}
+        e_j^{j-1} + f_{\sigma\left(j\right)} & \textnormal{ for } 2 \nmid j \\
+        e_j^{j-1} & \textnormal{ for } 2 \mid j
+    \end{array}\right. & & \textnormal{ for } j \in \left\lbrace 1, \dots, 2n \right\rbrace
+  \end{array}
+\end{equation}
+
+\( \sigma \) is defined to make \( f_{\sigma \left( i \right)} \) the other vector of the symplectic basis pair that contains \( f_i \):
+
+\begin{equation*}
+ \sigma \left( i \right) = \left\lbrace \begin{array}{lr}
+  2k-1 & \textnormal{ for } i = 2k \textnormal{ with } k \in \mathbb{N}\\
+  2k & \textnormal{ for } i = 2k-1 \textnormal{ with } k \in \mathbb{N}\\
+\end{array} \right\rbrace = i - \left( -1 \right)^{i}
+\end{equation*}
+
+Note that \( f_i \) is first introduced in \( e_{\sigma \left( i \right)} \) instead of \( e_i \), which would have been the more obvious solution. The reason for this was to simplify the equations by adjusting \( \omega \left( e_i, e_j \right) \) using \( f_i \) instead of \( f_{\sigma \left( i \right)} \). One consequence of this decision is that when given \( \nu_{i,j} \) the symplectic basis already realized (namely \( \nu_{i, \sigma \left( i \right)} = \left( -1 \right)^{i + 1} \) and \( v_{i,j} = 0 \) for \( j \neq \sigma \left( i \right) \)), the basis vectors are still swapped, so that \( e_1 = f_2 \), \( e_2 = -f_1 \), \dots  
+
+We don't know yet if this formula is defined, because we are dividing by \( \omega\left( e_i, f_i \right) \), so our next objective is to find out how the coefficients in this formula look like to obtain a condition for those to be non-zero. This is what the next few lemmata will be concerned with; the correctness of this formula will eventually be proven in Lemma \ref{lemma:correctnessofrecursionformula}.
+
+When displaying an \( e_j \) in terms of the symplectic base, we get
+
+\begin{equation}
+  \label{equation:eintermsofrhoandf}
+  e_j = \sum_{i=1}^{2n} \rho_{j,i} f_i
+\end{equation}
+
+for some \( \rho_{j,i} \in \mathbb{R} \). We can see from the formula that \( \rho_{j,i} \) is determined in the step of \( e_j^i \) and will not be changed afterwards. Because of this, we can use those \( \rho_{j,i} \) in equation \eqref{equation:symptobase:vectors}, which allows us to simplify it to:
+
+\begin{equation}
+  \label{equation:symptobase:vectorswithrho}
+  \begin{array}{llr}
+    e_j^0 = 0 & & \textnormal{ for } j \in \left\lbrace 1, \dots, 2n \right\rbrace \\
+    e_j^i = e_j^{i-1} + \rho_{j,i}  f_i = \sum\limits_{m=1}^{i} \rho_{j,m} f_m & & \textnormal{ for } i,j \in \left\lbrace 1, \dots, 2n \right\rbrace \textnormal{ and } i < j\\
+    e_j = e_j^j = e_j^{j-1} + \rho_{j,\sigma \left( j \right)} f_{\sigma \left( j \right)} & & \textnormal{ for } j \in \left\lbrace 1, \dots, 2n \right\rbrace
+  \end{array}
+\end{equation}
+
+So now we can start extracting the value of the \( \rho_{j,i} \): For \( i,j \in \left\lbrace 1, \dots, 2n \right\rbrace \) with \( i < j \) we have:
+
+\begin{equation*}
+  \rho_{j,i} = \frac{1}{\omega\left( e_i, f_i \right)} \left( \nu_{i,j} - \omega \left( e_i, e_j^{i-1} \right) \right)
+\end{equation*}
+
+The value of the denominator is \( \omega\left( e_i, f_i \right) = \left( -1 \right)^{i} \rho_{i, \sigma \left( i \right)} \), because \( \omega\left( e_i, f_i \right) = \omega \left( \sum_{k=1}^{2n} \rho_{i,k} f_k, f_i \right) = \rho_{i,\sigma \left( i \right)} \omega \left( f_{\sigma \left( i \right)}, f_i \right) = \left( -1 \right)^{i} \rho_{i, \sigma \left( i \right)} \). For \( \omega \left( e_i, e_j^{i-1} \right) \) the calculation is a bit more complicated:
+
+\begin{equation*}
+  \begin{split}
+    \omega \left( e_i, e_j^{i-1} \right) &
+    = \omega \left( \sum_{m=1}^{i-1} \rho_{i, m} f_m + \rho_{j,\sigma \left( i \right)} f_{\sigma \left( i \right)}, \sum_{m=1}^{i-1} \rho_{j, m} f_m \right) \\ &
+    \eqcom{1} \omega \left( \sum_{m=1}^{i-1} \rho_{i, m} f_m, \sum_{m=1}^{i-1} \rho_{j, m} f_m \right) \\ &
+    \eqcom{2} \sum_{m=1}^{i-1} \omega \left( f_m, f_{\sigma \left( m \right)} \right) \cdot \rho_{i, m} \cdot \rho_{j, \sigma \left( m \right)} \\ &
+    \eqcom{3} \sum_{m=1}^{i-1} \left( -1 \right)^{m+1} \rho_{i, m} \cdot \rho_{j, \sigma \left( m \right)} \\ &
+    \eqcom{4} -\sum \limits _{m=1} ^{2k-2} \left( -1 \right) ^{m} \rho_{i, m} \cdot \rho_{j, \sigma \left( m \right)}
+  \end{split}
+\end{equation*}
+
+In step \circled{1} we can omit the \( f_{\sigma \left( i \right)} \) because there is no \( f_i \) in the vector at the right side. In \circled{2} we use the linearity of \( \omega \) and remove all the summands evaluating to \( 0 \) since \( \omega \left( \bullet, \bullet \right) \) does not contain a symplectic basis pair. Their value is calculated in \circled{3} by \( \omega \left( f_m, f_{\sigma \left( m \right)} \right) = \left( -1 \right)^{m+1} \). In step \circled{4} we set \( k = \left\lceil \frac{i}{2} \right\rceil \). For the case that \( i \) is even, \( \rho_{i, i-1} = 0  \), therefore we can omit the last summand of the sum.  
+
+Assembling those observations, we get a recursive formula for the factors \( \rho_{j,i} \):
+
+\begin{equation}
+  \label{equation:symptobase:indices:recursive}
+  \rho_{j,i} = \left\lbrace
+\begin{array}{llr}
+  1 & & \textnormal{ for } 2 \nmid j \textnormal{ and } i = j + 1  \textnormal{ and } j \in \left\lbrace 1, \dots, 2n \right\rbrace \\
+  \frac{\left( -1 \right) ^ i}{\rho_{i, \sigma\left( i \right)}} \left( \nu_{i,j} + \sum \limits _{m=1} ^{2k-2} \left( -1 \right) ^m \rho_{i, m} \cdot \rho_{j, \sigma \left( m \right)} \right) & & \textnormal{ for } 1 \leq i < j \leq 2n \textnormal { with } i = 2k \lor i=2k-1 \\
+  0 & & \textnormal{otherwise}
+\end{array}
+\right.
+\end{equation}
+
+From this formula we can still not directly deduce a condition for the \( \rho_{i, \sigma \left( i \right)} \) and therefore the \( \omega\left( e_i, f_i \right) \) to be non-zero. To find a general pattern in the way they look like, first we calculate some example values as done in Figure \ref{figure:coefficientpyramid}. The element in the \( j \)th row and the \( i \)th column is our \( \rho_{j,i} \). For the calculation, equation \eqref{equation:symptobase:indices:recursive} was used together with Lemma \ref{lemma:splitomegatothepowerofk} to get them into a more readable representation:
+
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}
+  [
+    calculated/.style={fill=black,font=\small\color{white}},
+    inverted/.style={fill=white!20!black,font=\small\color{white}},
+    addend1/.style={pattern=horizontal lines, pattern color=white!50!black},
+    addend2/.style={pattern=grid, pattern color=white!70!black},
+    addend3/.style={pattern=vertical lines, pattern color=white!60!black},
+    addend4/.style={pattern=crosshatch, pattern color=white!80!black},
+  ]
+    \matrix[
+      matrix of nodes,
+      column sep=-\pgflinewidth,
+      row sep=-\pgflinewidth,
+      nodes={
+        minimum size=1cm,
+        draw,
+        anchor=center,
+        align=center,
+        fill=white,
+        text width=1.7cm,
+        inner sep=1mm,
+        font=\small,
+      }
+    ]{
+      0 & 1 \\
+      \( - \nu_{1,2} \) & 0 \\
+      \( - \nu_{1,3} \) & \( -\frac{\nu_{2,3}}{\nu_{1,2}} \) & \( 0 \) & \( 1 \) \\
+      \( - \nu_{1,4} \) & \( -\frac{\nu_{2,4}}{\nu_{1,2}} \) & \( -\frac{\nu_{1,2,3,4}}{\nu_{1,2}} \) & 0 \\
+      \( - \nu_{1,5} \) & \( -\frac{\nu_{2,5}}{\nu_{1,2}} \) & \( -\frac{\nu_{1,2,3,5}}{\nu_{1,2}} \) & \( -\frac{\nu_{1,2,4,5}}{\nu_{1,2,3,4}} \) & 0 & 1 \\
+      |[addend2]| \( - \nu_{1,6} \) & |[addend1]| \( -\frac{\nu_{2,6}}{\nu_{1,2}} \) & |[addend4]| \( -\frac{\nu_{1,2,3,6}}{\nu_{1,2}} \) & |[addend3]| \( -\frac{\nu_{1,2,4,6}}{\nu_{1,2,3,4}} \) & |[inverted]| \( -\frac{\nu_{1,2,3,4,5,6}}{\nu_{1,2,3,4}} \) & 0 \\
+      \( - \nu_{1,7} \) & \( -\frac{\nu_{2,7}}{\nu_{1,2}} \) & \( -\frac{\nu_{1,2,3,7}}{\nu_{1,2}} \) & \( -\frac{\nu_{1,2,4,7}}{\nu_{1,2,3,4}} \) & \( -\frac{\nu_{1,2,3,4,5,7}}{\nu_{1,2,3,4}} \) & \( -\frac{\nu_{1,2,3,4,6,7}}{\nu_{1,2,3,4,5,6}} \) & 0 & 1 \\
+      |[addend1]| \( - \nu_{1,8} \) & |[addend2]| \( -\frac{\nu_{2,8}}{\nu_{1,2}} \) & |[addend3]| \( -\frac{\nu_{1,2,3,8}}{\nu_{1,2}} \) & |[addend4]| \( -\frac{\nu_{1,2,4,8}}{\nu_{1,2,3,4}} \) & \( -\frac{\nu_{1,2,3,4,5,8}}{\nu_{1,2,3,4}} \) & |[calculated]| \( -\frac{\nu_{1,2,3,4,6,8}}{\nu_{1,2,3,4,5,6}} \) & \( -\frac{\nu_{1,2,\dots,7,8}}{\nu_{1,2,3,4,5,6}} \) & 0 \\
+    };
+  \end{tikzpicture}
+  \captionof{figure}[Coefficient Pyramid]{The values of the \(  \rho_{j,i} \) for \( j \leq 8 \) with the formula used to caluclate \( \rho_{8,6} \) visualized}
+  \label{figure:coefficientpyramid}
+  \vspace{0.5cm}
+\end{figure}
+
+Using Equation \eqref{equation:symptobase:indices:recursive} to compute the value of \( \rho_{8,6} \) we get the following equation (with matching background fillings with figure \ref{figure:coefficientpyramid}):
+
+\begin{equation*}
+  \hfsetbordercolor{black}
+  \tikzmarkin[fill=black]{calculated} {\color{white}\rho_{8,6}} \tikzmarkend{calculated}
+  = \frac{1}{\tikzmarkin[fill=white!20!black]{inverted} {\color{white}\rho_{6, 5}}\tikzmarkend{inverted}} \left( \nu_{5,8} \;
+  - \; \tikzmarkin[pattern=grid, pattern color=white!70!black]{addend2} \rho_{6, 1} \cdot \rho_{8, 2} \tikzmarkend{addend2} \;
+  + \; \tikzmarkin[pattern=horizontal lines, pattern color=white!50!black]{addend1} \rho_{6, 2} \cdot \rho_{8, 1} \tikzmarkend{addend1} \;
+  - \; \tikzmarkin[pattern=crosshatch, pattern color=white!80!black]{addend4} \rho_{6, 3} \cdot \rho_{8, 4} \tikzmarkend{addend4} \;
+  + \; \tikzmarkin[pattern=vertical lines, pattern color=white!60!black]{addend3} \rho_{6, 4} \cdot \rho_{8, 3} \tikzmarkend{addend3} \; \right)
+\end{equation*}
+
+When calculating this value manually, we can see the following pattern emerge: The first three summands inside the bracket together form the volume of a bigger simplex using Lemma \ref{lemma:subsimplexproduct}:
+
+\begin{equation*}
+  \begin{split}
+    \rho_{8,6} & = \frac{1}{\rho_{6, 5}} \left( \nu_{6, 8} - \rho_{6, 1} \cdot \rho_{8, 2} + \rho_{6, 2} \cdot \rho_{8, 1} - \rho_{6, 3} \cdot \rho_{8, 4} + \rho_{6, 4} \cdot \rho_{8, 3} \right) \\
+    & = \frac{1}{-\frac{\nu_{1,2,3,4,5,6}}{\nu_{1,2,3,4}}} \left( \nu_{6,8} - \nu_{1,6} \cdot \frac{\nu_{2,8}}{\nu_{1,2}} + \frac{\nu_{2,6}}{\nu_{1,2}} \cdot \nu_{1,8} - \frac{\nu_{1,2,3,6}}{\nu_{1,2}} \cdot \frac{\nu_{1,2,4,8}}{\nu_{1,2,3,4}} + \frac{\nu_{1,2,4,6}}{\nu_{1,2,3,4}} \cdot \frac{\nu_{1,2,3,8}}{\nu_{1,2}} \right) \\
+    & \eqcom{1} -\frac{\nu_{1,2,3,4}}{\nu_{1,2,3,4,5,6}} \left(\frac{\nu_{1,2} \cdot \nu_{6,8} - \nu_{1,6} \cdot \nu_{2,8} + \nu_{1,8} \cdot \nu_{2,6}}{\nu_{1,2}} - \frac{\nu_{1,2,3,6}}{\nu_{1,2}} \cdot \frac{\nu_{1,2,4,8}}{\nu_{1,2,3,4}} + \frac{\nu_{1,2,4,6}}{\nu_{1,2,3,4}} \cdot \frac{\nu_{1,2,3,8}}{\nu_{1,2}} \right) \\
+    & \eqcom{2} -\frac{\nu_{1,2,3,4}}{\nu_{1,2,3,4,5,6}} \left(\frac{\nu_{1,2,6,8}}{\nu_{1,2}} - \frac{\nu_{1,2,3,6}}{\nu_{1,2}} \cdot \frac{\nu_{1,2,4,8}}{\nu_{1,2,3,4}} + \frac{\nu_{1,2,4,6}}{\nu_{1,2,3,4}} \cdot \frac{\nu_{1,2,3,8}}{\nu_{1,2}} \right) \\
+    & \eqcom{1} -\frac{\nu_{1,2,3,4}}{\nu_{1,2,3,4,5,6}} \left(\frac{\nu_{1,2,3,4} \cdot \nu_{1,2,6,8} - \nu_{1,2,3,6} \cdot \nu_{1,2,4,8} + \nu_{1,2,3,8} \cdot \nu_{1,2,4,6}}{\nu_{1,2}\cdot\nu_{1,2,3,4}} \right) \\
+    & \eqcom{2} -\frac{\nu_{1,2,3,4}}{\nu_{1,2,3,4,5,6}} \left(\frac{\nu_{1,2,3,4,6,8} \cdot \nu_{1,2}}{\nu_{1,2}\cdot\nu_{1,2,3,4}} \right) \\
+    & = -\frac{\nu_{1,2,3,4,6,8}}{\nu_{1,2,3,4,5,6}} \\
+  \end{split}
+\end{equation*}
+
+In the steps marked with \circled{1} the fractions in the first three summands are expanded to the same denominator, and in \circled{2} Lemma \ref{lemma:subsimplexproduct} is used. Those observation can also be used to prove this description of the \( \rho_{j,i} \) formally:
+
+% HACK
+\pagebreak{}
+
+\begin{lemma}
+  \label{lemma:rhoasquotients}
+  The \( \rho_{j, i} \) from equation \eqref{equation:symptobase:indices:recursive} can be stated as follows:
+
+\begin{equation}
+  \label{equation:symptobase:indices:pretty}
+  \rho_{j,i} = \left\lbrace
+\begin{array}{lr}
+  1 & \textnormal{ for } 2 \nmid j \textnormal{ and } i = j + 1  \textnormal{ and } j \in \left\lbrace 1, \dots, 2n \right\rbrace \\
+  -\frac{\nu_{1,\dots,2k-2,2k-1,j}}{\nu_{1,\dots,2k-2}} & \textnormal{ for } 0 < i < j \leq 2n \land i = 2k - 1 \textnormal{ with } k \in \mathbb{N} \\
+  -\frac{\nu_{1,\dots,2k-2,2k,j}}{\nu_{1,\dots,2k}} & \textnormal{ for } 0 < i < j \leq 2n \land i = 2k \textnormal{ with } k \in \mathbb{N} \\
+  0 & \textnormal{ otherwise} \\
+\end{array} \right.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+  This statement can be shown using an induction - so for the induction step assume that the statement is true for the \( \rho_{j', i'} \) with \( j' < j \) or \( j' = j \land i' < i \). As the induction step we show that the statement is also true for \( \rho_{j, i} \):
+
+  The statement is true for the cases  \( j \leq i \lor i \leq 0 \) by definition. So now let \( 0 < i < j \). Set \( k = \left\lceil \frac{i}{2} \right\rceil \in \mathbb{N} \), which implies that \( i = 2k - 1 \) or \( i = 2k \). Then \( \rho_{j,i} \) has the following form:
+\begin{align*}
+  \rho_{j, i} & = \frac{\left( -1 \right) ^ i}{\rho_{i, \sigma\left( i \right)}} \left( \nu_{i,j} + \sum \limits _{l=1} ^{2k-2} \left( -1 \right) ^l \rho_{i, l} \cdot \rho_{j, \sigma \left( l \right)} \right) \\
+              & = \frac{\left( -1 \right) ^ i}{\rho_{i, \sigma\left( i \right)}} \left( \nu_{i,j} + \sum \limits _{l=1} ^{k-1} \left( \rho_{i, 2l} \cdot \rho_{j, 2l-1} - \rho_{i, 2l-1} \cdot \rho_{j, 2l} \right) \right) \\
+              & = \frac{\left( -1 \right) ^ i}{\rho_{i, \sigma\left( i \right)}} \left( p_0 + \sum \limits _{l=1} ^{k-1} p_l \right) = \frac{\left( -1 \right) ^ i}{\rho_{i, \sigma\left( i \right)}} \cdot P_{k-1}
+\end{align*}
+with \( p_l \) and \( P_l \) defined as follows:
+\begin{align*}
+  p_0 & = \nu_{i,j} \\
+  p_l & = \rho_{j, 2l-1} \cdot \rho_{i, 2l} - \rho_{j, 2l} \cdot \rho_{i, 2l-1}\\
+      & = - \frac{\nu_{1, \dots, 2l-2,2l-1,i} \cdot \nu_{1, \dots, 2l-2, 2l, j}}{\nu_{1, \dots, 2l} \cdot \nu_{1, \dots, 2l-2}} + \frac{\nu_{1, \dots, 2l-2,2l,i} \cdot \nu_{1, \dots, 2l-2, 2l-1, j}}{\nu_{1, \dots, 2l} \cdot \nu_{1, \dots, 2l-2}} \\
+  P_m & = \sum \limits_{l=0}^m p_l
+\end{align*}
+
+  The next step is to prove that \( P_m = \frac{\nu_{1, \dots, 2m, i, j}}{\nu_{1, \dots, 2m}} \), for which we can use another induction: The base case is given, because \( P_0 = \nu_{i,j} \). As the induction step we have:
+\begin{align*}
+  P_{l} = P_{l-1} + p_l & = \frac{\nu_{1, \dots, 2l-2, i, j}}{\nu_{1, \dots, 2l-2}} - \frac{\nu_{1, \dots, 2l-2, 2l, j} \cdot \nu_{1, \dots, 2l-2,2l-1,i}}{\nu_{1, \dots, 2l-2} \cdot \nu_{1, \dots, 2l-2, 2l-1, 2l}} + \frac{\nu_{1, \dots, 2l-2,2l,i} \cdot \nu_{1, \dots, 2l-2, 2l-1, j}}{\nu_{1, \dots, 2l-2, 2l-1, 2l} \cdot \nu_{1, \dots, 2l-2}} \\
+                        & \eqcom{1} \frac{\nu_{1, \dots, 2l-2, 2l-1, 2l} \cdot \nu_{1, \dots, 2l-2, i, j}}{\nu_{1, \dots, 2l-2, 2l-1, 2l} \cdot \nu_{1, \dots, 2l-2}} - \frac{\nu_{1, \dots, 2l-2, 2l, j} \cdot \nu_{1, \dots, 2l-2,2l-1,i}}{\nu_{1, \dots, 2l-2, 2l-1, 2l} \cdot \nu_{1, \dots, 2l-2}}\\
+                        & + \frac{\nu_{1, \dots, 2l-2, 2l-1, j} \cdot \nu_{1, \dots, 2l-2, 2l, i}}{\nu_{1, \dots, 2l-2, 2l-1, 2l} \cdot \nu_{1, \dots, 2l-2}}\\
+                        & \eqcom{2} \frac{\nu_{1, \dots, 2l-2, 2l-1, 2l, i, j} \cdot \nu_{1, \dots, 2l-2}}{\nu_{1, \dots, 2l-2, 2l-1, 2l} \cdot \nu_{1, \dots, 2l-2}} = \frac{\nu_{1, \dots, 2l, i, j}}{\nu_{1, \dots, 2l-2, 2l-1, 2l}}
+\end{align*}
+
+In this equation we expanded the fraction as in our previous example in step \circled{1} and then applied Lemma \ref{lemma:subsimplexproduct} in \circled{2}. Now we can finish the proof by verifying that:
+\begin{equation*}
+  \rho_{j, i} = \left\lbrace\begin{array}{llr}
+      \frac{\left( -1 \right)^{2k-1}}{\rho_{2k-1, 2k}}\cdot P_{k-1} = \frac{-1}{1} \cdot \frac{\nu_{1, \dots, 2k-2, 2k-1, j}}{\nu_{1, \dots, 2k-2}} & = -\frac{\nu_{1, \dots, 2k-2, 2k-1, j}}{\nu_{1, \dots, 2k-2}} & \textnormal{ for } i = 2k - 1 \textnormal{ with } k \in \mathbb{N}\\
+      \frac{\left( -1 \right)^{2k}}{\rho_{2k, 2k-1}} \cdot P_{k-1} = \frac{1}{-\frac{\nu_{1,\dots,2k}}{\nu_{1,\dots,2k-2}}} \cdot \frac{\nu_{1, \dots, 2k-2, 2k, j}}{\nu_{1, \dots, 2k-2}} & = -\frac{\nu_{1, \dots, 2k-2, 2k, j}}{\nu_{1, \dots, 2k}} & \textnormal{ for } i = 2k \textnormal{ with } k \in \mathbb{N}
+\end{array}\right.
+\end{equation*}
+\end{proof}
+
+Using this lemma we are close to a criterion for equation \eqref{equation:symptobase:vectors} to be defined: When looking at
+
+\[ \rho_{i, \sigma \left( i \right)} =
+\left\lbrace
+\begin{array}{lr}
+  \frac{\nu_{1,\dots,i}}{\nu_{1,\dots,i-2}} & 2 \mid i\\
+  1 & 2 \nmid i
+\end{array}
+\right.
+\]
+
+one can see that a chain of incident \(2k\)-simplices with non-zero-volume \( \nu_{1, \dots, 2k} \neq 0 \) for \( 1 \leq k \leq n \) is enough for all of the \( \rho_{i, \sigma \left( i \right)} \) to be non-zero. The next Lemma shows that for a nondegenerate \( 2n \)-simplex such a chain always exists:
+
+\begin{lemma}
+  \label{lemma:simplexchain}
+  Let \( \Delta \) be a simplex satisfying the nondegeneracy condition of equation \eqref{equation:nondegeneracy}.\\
+  Then there exists a permutation \( \pi \) such that \( \forall k \leq n \colon \nu_{\pi \left( 1 \right), \dots, \pi \left( 2k \right)} \neq 0 \).
+\end{lemma}
+
+\begin{proof}
+  Build this permutation starting with \(k = n\) decreasing \( k \) until \( k = 1 \).
+  In the first step of \( k = n \) the nondegeneracy condition in equation \eqref{equation:nondegeneracy} implies that \( \omega^{n} \left( e_1, \dots, e_{2n} \right) \neq 0 \). And when removing the last two vectors at the end of one iteration, this property \( \omega^{k} \left( e_1, \dots, e_{2k} \right) \neq 0 \) is preserved. In step \circled{1} of the following calculation the definition of the wedge-product from \cite[Section 8.1]{jaenich} is used again:
+\begin{align*}
+  0 & \neq \omega^{k} \left( e_1, \dots, e_{2k} \right) = \omega^{k-1} \wedge \omega \left( e_1, \dots, e_{2k} \right) \\
+    & \eqcom{1} \frac{1}{\left(2k - 2\right)! \cdot 2!} \cdot \sum \limits_{\tau \in S_{2k}} \textnormal{sgn} \left( \tau \right) \cdot \omega^{k-1} \left( e_{\tau \left( 1 \right)}, \dots, e_{\tau \left( 2k - 2 \right)} \right) \cdot \omega \left( e_{\tau \left( 2k-1 \right)}, e_{\tau \left( 2k \right)} \right)
+\end{align*}
+
+This implies that for one specific permutation \( \tau \) in the sum \( \omega^{k-1} \left( e_{\tau \left( 1 \right)}, \dots, e_{\tau \left( 2k - 2 \right)} \right) \) has to be non-zero. Set \( \pi \left( 2k-1 \right) = \tau \left(2k-1\right) \) and \( \pi \left( 2k \right) = \tau \left( 2k \right) \) and repeat this procedure for \( e_{\tau \left( 1 \right)}, \dots, e_{\tau \left( 2k - 2 \right)} \) with \( k \rightarrow k-1 \) until \( k = 1 \).
+\end{proof}
+
+After those considerations we can finally prove correctness of the induction formula presented in equation \eqref{equation:symptobase:vectors}:
+
+\begin{lemma}
+  \label{lemma:correctnessofrecursionformula}
+  Let \( \nu_{i,j} \in \mathbb{R} \) with \( \forall k < n : \nu_{1,\dots,2k } \neq 0 \) and \( f_1, \dots, f_{2n} \) a symplectic basis of \( \mathbb{R}^{2n} \).\\
+  Then the \( e_1, \dots, e_{2n} \) as defined in \eqref{equation:symptobase:vectors} form a basis of \( \mathbb{R}^{2n} \) with \( \nu_{i,j} = \omega\left(e_i, e_j\right) \).
+\end{lemma}
+
+\begin{proof}
+  This proof can be done using induction again: As the induction hypothesis for \( 0 < i < j < 2n \) use that \( \omega \left( e_{i'}, e_{j'} \right) = \nu_{i',j'} \) for all \( 1 \leq j' < j \) or \( j' = j \: \land \: 1 \leq i' < i \) and that \( \omega \left( e_{i'}, e_j^{i-1} \right) = \nu_{i', j} \) for all \( 1 \leq j' < j \) and \( 1 \leq i' \leq j \).
+
+  Assume that the induction hypothesis is true for \( i - 1 \) and \( j \). In the induction step we now show that this statement remains true for \( i \) with \( i < j \):
+\begin{align*}
+  \omega \left( e_i, e_j^i \right) & = \omega \left( e_i, e_j^{i-1} + \frac{1}{\omega \left( e_i, f_i \right)} \left( \nu_{i,j} - \omega \left( e_i, e_j^{i-1} \right) f_i \right) \right) \\
+                                   & = \omega \left( e_i, e_j^{i-1} \right) + \frac{1}{\omega \left( e_i, f_i \right)} \cdot \left( \nu_{i,j} - \omega \left( e_i, e_j^{i-1} \right) \right) \cdot \omega \left( e_i, f_i \right) \\
+                                   & = \omega \left( e_i, e_j^{i-1} \right) + \nu_{i,j} - \omega \left( e_i, e_j^{i-1} \right) = \nu_{i,j}
+\end{align*}
+
+The \( \omega \left( e_m, e_j^i \right) \) are not changed for \( m < i \) by adding this vector, since \( \omega \left( e_m, f_i \right) = 0 \) by our construction. By Lemma \ref{lemma:rhoasquotients} we know that the formula is defined.
+
+When setting \( e_j = \sum_{i=1}^{2n} \rho_{j, i} f_i \), with \( j = 2n, \dots, 1 \), (which results in the same \( e_j \) as the recursion formula) one can see that \( f_1, \dots, f_{2n} \) can be transformed into \( e_1, \dots, e_{2n} \) only by swapping vectors (\( e'_i = e_j \) and \(e'_j = e_i\)), scaling (\( e'_i = \lambda \cdot e_i \) for \( \lambda \in \mathbb{R} \setminus \left\lbrace 0 \right\rbrace \)) and addition (\( e'_i = e_i + \lambda \cdot e_j\) for \(  \lambda \in \mathbb{R} \)). This keeps them linearly independent, because those calculations maintain the value of the determinant non-zero.
+\end{proof}
+
+Using those insights, we can now state existence and uniqueness of a basis realizing given \( \nu_{i,j} \):
+
+\begin{theorem}
+  \label{theorem:uniquebase}
+  For \( \nu_{i,j} \in \mathbb{R} \), \( 1 \leq i < j \leq 2n \) satisfying equation \eqref{equation:nondegeneracy}, there exists a basis \( e_1, \dots, e_{2n} \) of \( \mathbb{R}^{2n} \) with \( \omega \left( e_i, e_j \right) = \nu_{i,j} \).
+  This basis is unique up to linear symplectomorphism.
+\end{theorem}
+
+\begin{proof}
+  (\textsc{Existence}): By Lemma \ref{lemma:simplexchain} we may assume that \( \forall k < n : \nu_{1,\dots,2k } \neq 0 \) by setting \( \nu'_{i,j} = \nu_{\pi\left( i \right), \pi \left( j \right)} \) and reverting this reordering at the end of the procedure by setting \( e'_i = e_{\pi^{-1} \left( i \right)} \).\\
+  Let \( f_1, \dots, f_{2n} \) be a symplectic basis of \( \left( \mathbb{R}^{2n}, \omega \right) \). Then define the \( e_i \) as in equation \eqref{equation:symptobase:vectors}. By Lemma \ref{lemma:correctnessofrecursionformula}, we know that \( \omega \left( e_i, e_j \right) = \nu_{i,j} \) for all \( i,j \in \left\lbrace 1, \dots, 2n \right\rbrace \).\\
+
+  (\textsc{Uniqueness}): Let \( e_1, \dots , e_{2n} \) and \( e'_1, \dots, e'_{2n} \) be two bases of \( \mathbb{R}^{2n} \) such that \( \omega \left( e'_i, e'_j \right) = \omega \left( e_i, e_j \right) = \nu_{i,j} \). Now we define the linear map \( \phi \colon \mathbb{R}^{2n} \rightarrow \mathbb{R}^{2n} \) by \( \phi \left( e_i \right) = e'_i \), so that \( v = \sum_{k=1}^{2n} \alpha_i e_i \) is mapped to \( \phi \left( \sum_{k=1}^{2n} \alpha_k e_k \right) = \sum_{k=1}^{2n} \alpha_k e'_k \).
+  
+  This mapping is symplectic, because for any \( v  = \sum_{k=1}^{2n} \alpha_k e_k \) and \( w = \sum_{k=1}^{2n} \beta_k e_k \) we have:
+  \begin{align*}
+    \phi^{\ast} \omega \left( v, w \right) = \omega \left( \phi \left( v \right), \phi \left( w \right) \right) & = \omega \left( \phi \left( \sum_{k=1}^{2n} \alpha_k e_k \right), \phi \left( \sum_{l=1}^{2n} \beta_l e_l \right) \right) \\ &
+        = \sum_{k=1}^{2n} \sum_{l=1}^{2n} \omega \left( \alpha_k e'_k, \beta_l e'_l \right) 
+        = \sum_{k=1}^{2n} \sum_{l=1}^{2n} \alpha_k \cdot \beta_l \cdot \omega \left( e'_k, e'_l \right) \\ &
+        = \sum_{k=1}^{2n} \sum_{l=1}^{2n} \alpha_k \cdot \beta_l \cdot \omega \left( e_k, e_l \right) 
+        = \omega \left( \sum_{k=1}^{2n} \alpha_k e_k, \sum_{l=1}^{2n} \beta_l e_l \right) 
+        = \omega \left( v, w \right)
+  \end{align*}
+
+  Therefore \( e_1, \dots, e_{2n} \) is unique up to linear symplectomorphism.
+\end{proof}
+
+\begin{theorem}
+  \label{theorem:uniquesimplex}
+  Given numbers \( \omega_{i,j,k} \in \mathbb{R} \), \( 0 \leq i < j < k \leq 2n \) satisfying equation \eqref{equation:bordercondition} and \eqref{equation:nondegeneracy}, there exists a simplex \( \Delta \subset \mathbb{R}^{2n} \), whose two-dimensional faces have areas \( \int_{\Delta_{i,j,k}} \omega = \omega_{i,j,k} \)\\
+  This simplex is unique up to affine symplectomorphism.
+\end{theorem}
+
+\begin{proof}
+  (\textsc{Existence}): Pick any \( v_0 \). According to Theorem \ref{theorem:uniquebase} there exist vectors \( e_1, \dots,  e_{2n} \) with \( \omega \left( e_i, e_j \right) = \nu_{i,j} = 2 \cdot \omega_{0,i,j} \). Set \( v_i = v_0 + e_i \). Then the simplex \( \Delta = \textnormal{conv} \left\lbrace v_0, \dots, v_{2n} \right\rbrace \) realizes those areas as well.\\
+
+  (\textsc{Uniqueness}): Suppose we are given a simplex \( \Delta = \textnormal{conv} \left\lbrace v_0, \dots, v_{2n} \right\rbrace \) realizing the given areas. Then the edges \( e_i = v_i - v_0 \) for \( i \in \left\lbrace 1, \dots, 2n \right\rbrace \) satisfy \( \omega \left( e_i, e_j \right) = \nu_{i,j} = 2 \cdot \omega_{0,i,j} \), which by Theorem \ref{theorem:uniquebase} is unique up to linear symplectomorphism. Since the vector \( v_0 \) is unique up to translation, this proves uniqueness of the simplex \( \Delta \) up to affine symplectomorphism.
+\end{proof}
+\end{document}
+

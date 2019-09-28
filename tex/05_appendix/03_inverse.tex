@@ -1,0 +1,262 @@
+\documentclass[../SymplecticSimplices.tex]{subfiles}
+
+\begin{document}
+\section{Inverse of the recursion formula}
+\label{appendix:revertingtheformula}
+In section \ref{section:simplexclassification} we found a recursion formula to convert a symplectic basis \( f_1, \dots, f_{2n} \) of \( \mathbb{R}^{2n} \) into a basis realizing given \( \nu_{i,j} \in \mathbb{R} \) for \( 1 \leq i < j \leq 2n \):
+
+\begin{equation}
+  \tag{\ref{equation:symptobase:vectors}}
+  \begin{array}{llr}
+    e_j^0 = 0 & & \textnormal{ for } j \in \left\lbrace 1, \dots, 2n \right\rbrace \\
+    e_j^i = e_j^{i-1} + \frac{1}{\omega\left( e_i, f_i \right)} \left( \nu_{i,j} - \omega \left( e_i, e_j^{i-1} \right) \right) f_i & & \textnormal{ for } i,j \in \left\lbrace 1, \dots, 2n \right\rbrace \textnormal{ and } i < j\\
+    e_j = e_j^j = \left\lbrace\begin{array}{lr}
+        e_j^{j-1} + f_{\sigma\left(j\right)} & \textnormal{ for } 2 \nmid j \\
+        e_j^{j-1} & \textnormal{ for } 2 \mid j
+    \end{array}\right. & & \textnormal{ for } j \in \left\lbrace 1, \dots, 2n \right\rbrace
+  \end{array}
+\end{equation}
+
+In this last section of the appendix, we will prove that recursion formula \eqref{equation:symptobase:vectors} can be inverted. First, we introduce a recursion formula that converts any basis of \( \mathbb{R}^{2n} \) into a symplectic basis and afterwards we will show that this formula indeed inverts equation \eqref{equation:symptobase:vectors}:
+
+\begin{lemma}
+  \label{lemma:simplexedgestosymplecticbase}
+  Let \( e_1, \dots, e_{2n} \) with \( \forall k \leq n : \nu_{1,\dots,2k } = \frac{1}{k!} \cdot \omega \left( e_1, \dots, e_{2k} \right) \neq 0 \) (for \( \nu_{i,j} = \omega \left( e_i, e_j \right) \)) be a basis of \( \mathbb{R}^{2n} \).\\
+  Then the \( f_1, \dots, f_{2n} \) defined by the following equation for \( k = 1, \dots, n \) form a symplectic basis of \( \mathbb{R}^{2n} \):
+  \begin{equation}
+    \label{equation:basistosymp}
+    \begin{split}
+      f_{2k-1} & = \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( e_{2k} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_m \right) f_{\sigma \left( m \right)} \right) \\
+      f_{2k} & = e_{2k-1} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k-1}, f_m \right) f_{\sigma \left( m \right)}
+    \end{split}
+  \end{equation}
+\end{lemma}
+
+Note that there is no circular reference between the parts of the recursion formula \eqref{equation:basistosymp}: \( f_{2k} \) is used in \( f_{2k-1} \), but \( f_{2k-1} \) is not used in \( f_{2k} \).
+
+As in section \ref{section:simplexclassification}, \( \forall k \leq n : \nu_{1,\dots,2k } = \frac{1}{k!} \cdot \omega \left( e_1, \dots, e_{2k} \right) \neq 0 \) does not impose a real restriction: Since for every basis \( e_1, \dots, e_{2n} \) it holds that \( \omega \left( e_1, \dots, e_{2n} \right) \neq 0 \) by Lemma \ref{lemma:symplecticvolume}, we know that we can reorder the vectors of the basis as in Lemma \ref{lemma:simplexchain} such that this condition is fulfilled. 
+
+\begin{proof}
+  Our first step is to prove that \( f_1, \dots, f_{2n} \) satisfy the additional property of a symplectic basis:
+
+\begin{align*}
+  \omega \left( f_i, f_j \right) =
+  \left\lbrace
+  \begin{array}{llr}
+    1 && \textnormal{ for } i = 2k - 1 \textnormal{ and } j = 2k \textnormal{ with } k \in \left\lbrace 1, \dots, 2n \right\rbrace \\
+    -1 && \textnormal{ for } i = 2k \textnormal{ and } j = 2k - 1 \textnormal{ with } k \in \left\lbrace 1, \dots, 2n \right\rbrace \\
+    0 && \textnormal{ otherwise }
+  \end{array}
+  \right.
+\end{align*}
+  
+  So assume that \( f_{1}, \dots, f_{2k-2} \) suffice this property. Since we are dividing by \( \omega \left( e_{2k}, f_{2k} \right) \) in formula \eqref{equation:basistosymp}, we need to make sure that it is non-zero. To show this, we can use the postulated fact that \( \forall k \leq n : \frac{1}{k!} \cdot \omega \left( e_1, \dots, e_{2k} \right) \neq 0 \):
+
+  \begin{equation*}
+    \begin{split}
+      0 \neq \frac{1}{k!} \omega^{k} \left( e_1, e_2, \dots, e_{2k-1}, e_{2k} \right) & \lracom{1} 0 \neq \frac{1}{k!} \omega^{k} \left( f_1, f_2, \dots, f_{2k-3}, f_{2k-2}, f_{2k}, e_{2k} \right) \\
+                                                                                             & \eqcom{2} \omega \left( f_1, f_2 \right) \cdot \dots \cdot \omega \left( f_{2k-3}, f_{2k-2} \right) \cdot \omega \left( e_{2k}, f_{2k} \right) = \omega \left( e_{2k}, f_{2k} \right)
+    \end{split}
+  \end{equation*}
+
+  In this equation, at the bi-implication \circled{1} we transformed the \( e_i \) into \( f_{\sigma \left( i \right)} \) for \( i \in \left\lbrace 1, \dots, 2k-1 \right\rbrace \) using the formula \eqref{equation:basistosymp}, which only requires the addition of other basis vectors and the multiplication with non-zero values, thus the value of \( \omega^{k} \left( f_1, f_2, \dots, f_{2k-3}, f_{2k-2}, f_{2k}, e_{2k} \right) \) remains non-zero. At equality \circled{2} we used Lemma \ref{lemma:splitomegatothepowerofk} to split up the \( \omega^{k} \). In every summand there has to be one \( \omega \left( \bullet, e_{2k} \right) \), and if the second vector of this pair is not \( f_{2k} \), there is a factor like \( \omega \left( f_{2k}, f_i \right) = 0 \) with \( i \leq 2k - 2 \), so that the whole summand disappears. This is also true for all pairs \( \omega \left( f_i, f_j \right) \) with \( i \neq \sigma \left( j \right) \), so that only the \( k! \) permutations of the factor \( \omega \left( f_1, f_2 \right) \cdot \dots \cdot \omega \left( f_{2k-3}, f_{2k-2} \right) \cdot \omega \left( e_{2k}, f_{2k} \right) \) remain.
+
+  After having confirmed that we can safely divide by \( \omega \left( e_{2k}, f_{2k} \right) \), we can now show that \( \omega \left( f_l, f_{2k-1} \right) = \omega \left( f_l, f_{2k} \right) = 0 \) for \( l \leq 2k-2 \):
+
+  \begin{equation*}
+    \begin{split}
+      \omega \left( f_l, f_{2k-1} \right) & = \omega \left( f_l, \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( e_{2k} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left(e_{2k} , f_m \right) f_{\sigma \left( m \right)} \right) \right) \\ &
+    = \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( \omega \left( f_l, e_{2k} \right) - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_m \right) \cdot \omega \left( f_l, f_{\sigma \left( m \right)} \right) \right) \\ &
+    \eqcom{1} \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( \omega \left( f_l, e_{2k} \right) - \left( -1 \right)^{l} \omega \left( e_{2k}, f_l \right) \cdot \omega \left( f_l, f_{\sigma \left( l \right)} \right) \right) \\ &
+  \eqcom{2} \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( \omega \left( f_l, e_{2k} \right) - \left( -1 \right)^{l} \omega \left( e_{2k}, f_l \right) \cdot \left( -1 \right)^{l+1} \right) \\ &
+  = \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( \omega \left( f_l, e_{2k} \right) + \omega \left( e_{2k}, f_l \right) \right) = \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( \omega \left( f_l, e_{2k} \right) - \omega \left( f_l, e_{2k} \right) \right) = 0
+    \end{split}
+  \end{equation*}
+
+  \begin{equation*}
+    \begin{split}
+      \omega \left( f_l, f_{2k} \right) & = \omega \left( f_l,  e_{2k-1} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k-1}, f_m \right) f_{\sigma \left( m \right)} \right) \\ &
+      = \omega \left( f_l, e_{2k-1} \right) - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k-1}, f_m \right) \omega \left( f_l, f_{\sigma \left( m \right)} \right) \\ &
+    \eqcom{1} \omega \left( f_l, e_{2k-1} \right) - \left( -1 \right)^{l} \omega \left( e_{2k-1}, f_l \right) \omega \left( f_l, f_{\sigma \left( l \right)} \right) \\ &
+    \eqcom{2} \omega \left( f_l, e_{2k-1} \right) - \left( -1 \right)^{l} \omega \left( e_{2k-1}, f_l \right) \left( -1 \right)^{l+1} \\ &
+    = \omega \left( f_l, e_{2k-1} \right) + \omega \left( e_{2k-1}, f_l \right) = \omega \left( f_l, e_{2k-1} \right) - \omega \left( f_l, e_{2k-1} \right) = 0
+    \end{split}
+  \end{equation*}
+
+  In both equations, in step \circled{1} we used that all other \( \omega \left( \bullet, \bullet \right) = 0 \), because they don't contain both vectors of the symplectic base pair. In step \circled{2} we applied the definition of a symplectic base together with the skew-symmetry of \( \omega \): \( \omega \left( f_l, f_{\sigma \left( l \right)} \right) = \left( -1 \right)^{l+1} \).
+
+  The last step of the induction is to verify that both vectors together return \( \omega \left( f_{2k-1}, f_{2k} \right) = 1 \). In the next equation at equality \circled{3}, we know that \( \omega \left( f_{\sigma \left( m \right)}, f_{2k} \right) = 0 \) because this was shown for \( m \leq 2k-2 \) in the previous step of this proof:
+
+  \begin{equation*}
+    \begin{split}
+      \omega \left( f_{2k-1}, f_{2k} \right) & = \omega \left( \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( e_{2k} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_m \right) f_{\sigma \left( m \right)}  \right), f_{2k} \right) \\ &
+      = \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( \omega \left( e_{2k}, f_{2k} \right) - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_m \right) \omega \left( f_{\sigma \left( m \right)}, f_{2k} \right) \right) \\ &
+      \eqcom{3} \frac{1}{\omega \left( f_{2k}, e_{2k} \right)} \left( \omega \left( e_{2k}, f_{2k} \right) - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_m \right) \cdot 0 \right) \\ &
+      = \frac{\omega \left( e_{2k}, f_{2k} \right)}{\omega \left( e_{2k}, f_{2k} \right)} = 1
+    \end{split}
+  \end{equation*}
+
+  Using that \( \omega \left( e_{2k}, f_{2k} \right) \neq 0 \) we know that \( f_1, \dots, f_{2n} \) still forms a basis of \( \mathbb{R}^{2n} \) because when applying equation \eqref{equation:basistosymp} in the order \( k = 2, 1, 4, 3, \dots, 2n, 2n-1 \) only scaling (\( e'_i = \lambda \cdot e_i \) for \( \lambda \in \mathbb{R} \setminus \left\lbrace 0 \right\rbrace \)) and addition (\( e'_i = e_i + \lambda \cdot e_j\) for \(  \lambda \in \mathbb{R} \)) are required. This keeps them linearly independent because those calculations maintain the value of the determinant non-zero.
+\end{proof}
+
+To verify that our equations \eqref{equation:symptobase:vectors} and \eqref{equation:basistosymp} are inverse, we need some more information about the \( \omega \left( e_j, f_i \right) \). The next two Lemmas will prove that those are closely related to the \( \rho_{j,i} \) from section \ref{section:simplexclassification}:
+
+\begin{lemma}
+  \label{lemma:displayinsymplecticbasis}
+  Let \( v \in \mathbb{R}^{2n} \) and \( f_1, \dots, f_{2n} \) be a symplectic basis of \( \mathbb{R}^{2n} \). Then:
+
+  \[ v = \sum \limits _{i = 1} ^{2n} \left( -1 \right)^{\sigma \left( i \right)} \omega \left( v, f_{\sigma \left( i \right)} \right) f_i \]
+\end{lemma}
+
+\begin{proof}
+  \( v \) can be written in terms of the \( f_i \) with coefficients \( \alpha_{1}, \dots, \alpha_{2n} \in \mathbb{R} \): \( v = \sum _{i = 1} ^{2n} \alpha_{i} f_i \). Because of this, we can rewrite every \( \alpha_i \) as follows:
+
+  \begin{equation*}
+    \begin{split}
+      \alpha_i & = \left( -1 \right)^{\sigma \left( i \right)} \omega \left( \alpha_i f_i, f_{\sigma \left( i \right)} \right) \\
+               & \eqcom{1} \left( -1 \right)^{\sigma \left( i \right)} \omega \left( \sum \limits _{m = 1} ^{2n} \limits \alpha_{m} f_m, f_{\sigma \left( m \right)} \right) \\
+               & = \left( -1 \right)^{\sigma \left( i \right)} \omega \left( v, f_{\sigma \left( i \right)} \right)
+    \end{split}
+  \end{equation*}
+
+  The terms we add in step \circled{1} are all \( 0 \) because for \( l \neq \sigma \left( m \right) \) by definition of the symplectic basis \( \left( -1 \right)^{\sigma \left( i \right)} \omega \left( f_l, f_{\sigma \left( m \right)} \right) \).
+\end{proof}
+
+\begin{lemma}
+  \label{lemma:basistosymp:rho}
+  Let \( e_1, \dots, e_{2n} \) be a basis of \( \mathbb{R}^{2n} \) such that \( \forall k \leq n : \nu_{1,\dots,2k } = \frac{1}{k!} \cdot \omega \left( e_1, \dots, e_{2k} \right) \neq 0 \) (for \( \nu_{i,j} = \omega \left( e_i, e_j \right) \)), and \( f_1, \dots, f_{2n} \) be the result of applying the recursion formula of \eqref{equation:basistosymp} on the \( e_i \).
+
+  With \( \rho_{j,i} \) defined as in \eqref{equation:symptobase:indices:recursive} it holds that \( \omega \left( e_j, f_i \right) = \left( -1 \right)^i \cdot \rho_{j, \sigma \left( i \right)} \)
+\end{lemma}
+
+For the proof, recall equation \eqref{equation:symptobase:indices:recursive} from section \ref{section:simplexclassification} describing the \( \rho_{j,i} \):
+
+\begin{equation}
+  \tag{\ref{equation:symptobase:indices:recursive}}
+  \rho_{j,i} = \left\lbrace
+  \begin{array}{llr}
+    1 & & \textnormal{ for } 2 \nmid j \textnormal{ and } i = j + 1  \textnormal{ and } j \in \left\lbrace 1, \dots, 2n \right\rbrace \\
+    \frac{\left( -1 \right) ^ i}{\rho_{i, \sigma\left( i \right)}} \left( \nu_{i,j} + \sum \limits _{m=1} ^{2k-2} \left( -1 \right) ^m \rho_{i, m} \cdot \rho_{j, \sigma \left( m \right)} \right) & & \textnormal{ for } 1 \leq i < j \leq 2n \textnormal { with } i = 2k \lor i=2k-1 \\
+    0 & & \textnormal{otherwise}
+  \end{array}
+  \right.
+\end{equation}
+
+\begin{proof}
+  By Lemma \ref{lemma:displayinsymplecticbasis} we know that \( e_j = \sum _{i = 1} ^{2n} \left( -1 \right)^{\sigma \left( i \right)} \omega \left( e_j, f_{\sigma \left( i \right)} \right) f_i \). When solving equation \eqref{equation:basistosymp} for \( e_{2k} \) and \( e_{2k-1} \), we get the following formula:
+  
+  \begin{equation*}
+    \begin{split}
+      e_{2k} & = \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_m \right) f_{\sigma \left( m \right)} + \omega \left( e_{2k}, f_{2k} \right) f_{2k-1} \\
+      e_{2k-1} & = \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k-1}, f_m \right) f_{\sigma \left( m \right)} + f_{2k}
+    \end{split}
+  \end{equation*}
+
+  As \( f_1, \dots, f_{2n} \) form a basis of \( \mathbb{R}^{2n} \), the coefficients for displaying a vectors in terms of the \( f_i \) are unique. Since for \( e_{2k} \) only the basis vectors \( f_i \) with \( i \in \left\lbrace 1, \dots, 2k-2, 2k-1 \right\rbrace \) and for \( e_{2k-1} \) only the basis vectors \( f_i \) with \( i \in \left\lbrace 1, \dots, 2k-2, 2k \right\rbrace \) appear in the linear combination above, all other \( \omega \left( e_j, f_{\sigma \left( i \right)} \right) \) must be zero, which confirms \( \omega \left( e_j, f_{\sigma \left( i \right)} \right) = 0 = \rho_{j,i} \) in this case.
+
+  Next, we consider the \( \omega \left( e_{2k-1}, f_{2k-1} \right) \):
+
+  \begin{equation*}
+    \begin{split}
+      \omega \left( e_{2k-1}, f_{2k-1} \right) & \eqcom{1} \omega \left( e_{2k-1}, \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( e_{2k} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_m \right) f_{\sigma \left( m \right)} \right) \right) \\
+                                               & = \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( \omega \left( e_{2k-1}, e_{2k} \right) - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_m \right) \omega \left( e_{2k-1}, f_{\sigma \left( m \right)} \right) \right) \\
+                                               & \eqcom{2} \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( \omega \left( e_{2k-1}, e_{2k} \right) + \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_{\sigma \left( m \right)} \right) \omega \left( e_{2k-1}, f_m \right) \right) \\
+                                               & \eqcom{3} \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( \omega \left( e_{2k-1}, e_{2k} \right) + \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( f_{\sigma \left( m \right)}, e_{2k} \right) \omega \left( f_{m}, e_{2k-1} \right) \right) \\
+                                               & = \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \cdot \omega \left( e_{2k-1} + \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( f_{m}, e_{2k-1} \right) f_{\sigma \left( m \right)}, e_{2k} \right) \\
+                                               & \eqcom{4} \frac{1}{\omega \left( f_{2k}, e_{2k} \right)} \left( \omega \left( e_{2k}, f_{2k} \right) \right) = - \frac{\omega \left( f_{2k}, e_{2k} \right)}{\omega \left( f_{2k}, e_{2k} \right)} = -1 \\
+                                               & \eqcom{5} \left( -1 \right)^{2k-1} \rho_{2k-1, 2k} = \left( -1 \right)^{2k-1} \rho_{2k-1, \sigma \left( 2k-1 \right) } \\
+    \end{split}
+  \end{equation*}
+
+  In step \circled{1} we applied the recursion formula from \eqref{equation:basistosymp}. For the equality labeled with \circled{2}, we used the following observation:
+
+  \begin{equation*}
+    \begin{split}
+      & \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_m \right) \omega \left( e_{2k-1}, f_{\sigma \left( m \right)} \right) \\
+      & = \sum \limits _{l=1}^{k-1} \left( - \omega \left( e_{2k}, f_{2l-1} \right) \omega \left( e_{2k-1}, f_{\sigma \left( {2l-1} \right)} \right) + \omega \left( e_{2k}, f_{2l} \right) \omega \left( e_{2k-1}, f_{\sigma \left( {2l} \right)} \right) \right) \\
+      & = \sum \limits _{l=1}^{k-1} \left( - \omega \left( e_{2k}, f_{2l-1} \right) \omega \left( e_{2k-1}, f_{2l} \right) + \omega \left( e_{2k}, f_{2l} \right) \omega \left( e_{2k-1}, f_{2l-1} \right) \right) \\
+      & = - \sum \limits _{l=1}^{k-1} \left( - \omega \left( e_{2k}, f_{2l} \right) \omega \left( e_{2k-1}, f_{2l-1} \right) + \omega \left( e_{2k}, f_{2l-1} \right) \omega \left( e_{2k-1}, f_{2l} \right) \right) \\
+      & = - \sum \limits _{l=1}^{k-1} \left( - \omega \left( e_{2k}, f_{\sigma \left( 2l-1 \right)} \right) \omega \left( e_{2k-1}, f_{2l-1} \right) + \omega \left( e_{2k}, f_{\sigma \left( 2l \right)} \right) \omega \left( e_{2k-1}, f_{2l} \right) \right) \\
+      & = - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_{\sigma \left( m \right)} \right) \omega \left( e_{2k-1}, f_m \right)
+    \end{split}
+  \end{equation*}
+
+  Both arguments of the \( \omega \left( \bullet, \bullet \right) \) were swapped in step \circled{3}; the two resulting ``\( - \)'' cancel each other out. In equality \circled{4} equation \eqref{equation:basistosymp} was applied again, and in \circled{5} we used that \( \rho_{2k-1, 2k} = 1 \).
+\
+  Now only the case in which \( 1 \leq i < j \leq 2n \textnormal { with } i = 2k \lor i = 2k - 1 \) for \( k \in \mathbb{N} \) is remaining. In this case, we can show that \( \omega \left( e_j, f_i \right) = \left( -1 \right)^i \cdot \rho_{j, \sigma \left( i \right)} \) by induction over \( k \):
+  
+  For the induction step we assume that the statement is true for the \( \rho_{j', i'} \) with \( j' < j \) or \( j' = j \land i' \leq 2k-2 \) and prove that the statement also holds for \( \rho_{j, 2k - 1} \) (if \( j < 2k-1 \)) and \( \rho_{j, 2k} \) (if \( j < 2k \)):
+
+  \begin{equation*}
+    \begin{split}
+      \omega \left( e_j, f_{2k} \right) & \eqcom{1} \omega \left( e_j, e_{2k-1} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k-1}, f_m \right) f_{\sigma \left( m \right)} \right) \\
+                                        & = \omega \left( e_j, e_{2k-1} \right) - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k-1}, f_m \right) \omega \left( e_j, f_{\sigma \left( m \right)} \right) \\
+                                        & \eqcom{2} \nu_{j, 2k-1} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \left( -1 \right)^{\sigma \left( m \right)} \cdot \rho_{2k-1, \sigma \left( m \right)} \cdot \left( -1 \right)^m \cdot \rho_{j, m} \\
+                                        & \eqcom{3a} \left( -1 \right)^{2k} \cdot \frac{\left( -1 \right)^{2k}}{\rho_{2k - 1, 2k}} \cdot \left( \nu_{j, 2k-1} + \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \cdot \left( -1 \right)^m \cdot \rho_{2k-1, \sigma \left( m \right)}\cdot \rho_{j, m} \right) \\
+                                        & \eqcom{4} \left( -1 \right)^{2k} \rho_{j, 2k-1} = \left( -1 \right)^{2k} \rho_{j, \sigma \left( 2k \right)}
+    \end{split}
+  \end{equation*}
+
+  \begin{equation*}
+    \begin{split}
+      \omega \left( e_j, f_{2k-1} \right) & \eqcom{1} \omega \left( e_j, \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( e_{2k} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_m \right) f_{\sigma \left( m \right)} \right) \right) \\
+                                          & = \frac{1}{\omega \left( e_{2k}, f_{2k} \right)} \left( \omega \left( e_j, e_{2k} \right) - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f_m \right) \omega \left( e_j, f_{\sigma \left( m \right)} \right) \right) \\
+                                          & \eqcom{2} \frac{1}{\left( -1 \right)^{2k} \cdot \rho_{2k, 2k-1}} \left( \nu_{j, 2k} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \cdot \left( -1 \right)^{m} \cdot \rho_{2k, \sigma \left(m \right)} \cdot \left( -1 \right)^{\sigma \left (m\right)} \cdot \rho_{j, m} \right) \\
+                                          & \eqcom{3b} \left( -1 \right)^{2k-1} \cdot \frac{\left( -1 \right)^{2k-1}}{\rho_{2k, 2k-1}} \left( \nu_{j, 2k} + \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \cdot \rho_{2k, \sigma \left(m \right)} \cdot \rho_{j, m} \right) \\
+                                          & \eqcom{4} \left( -1 \right)^{2k-1} \rho_{j, 2k} = \left( -1 \right)^{2k-1} \rho_{j, \sigma \left( 2k-1 \right)}
+    \end{split}
+  \end{equation*}
+
+  We applied the recursion formula \eqref{equation:basistosymp} in step \circled{1} of both equations. In equality \circled{2} we used that \( \omega \left( e_i, e_j \right) = \nu_{i,j} \) by definition and applied the induction hypothesis. In the step \circled{3a} of the first equation we multiplied with \( \left( -1 \right)^{2k} = 1 \) and \( \rho_{2k, 2k-1} = 1 \) and respectively in \circled{3b} with \( \left( -1 \right)^{2k-1} \cdot \left( -1 \right)^{2k-1} = 1 \). The equality \circled{4} just utilized the recursion formula \eqref{equation:symptobase:indices:recursive} again.
+\end{proof}
+
+The next two Lemmas will prove that recursion formula \eqref{equation:basistosymp} is indeed the inverse of \eqref{equation:symptobase:vectors}:
+
+\begin{lemma}
+  Let \( \nu_{i,j} \in \mathbb{R} \) with \( \forall k < n : \nu_{1,\dots,2k } \neq 0 \) and \( f_1, \dots, f_{2n} \) a symplectic basis of \( \mathbb{R}^{2n} \). \( e_1, \dots, e_{2n} \) is defined by applying equation \eqref{equation:symptobase:vectors} on \( f_1, \dots, f_{2n} \), and \( f'_1, \dots f'_{2n} \) by applying equation \eqref{equation:basistosymp} on the \( e_1, \dots, e_{2n} \).
+
+  Then \( f_i = f'_i \) for \( i \in \left\lbrace 1, \dots, 2n \right\rbrace \).
+\end{lemma}
+
+\begin{proof}
+  This statement can be proven using induction -- so as the induction hypothesis assume that \( f_{l} = f'_{l} \) for \( k \in \left\lbrace 1, \dots, 2k - 2 \right\rbrace \). In the induction step, we will now show that this also holds for \( 2k-1 \) and \( 2k \):
+
+  \begin{equation*}
+    \begin{split}
+      f'_{2k-1} & \eqcom{1} \frac{1}{\omega \left( e_{2k}, f'_{2k} \right)} \left( e_{2k} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k}, f'_m \right) f'_{\sigma \left( m \right)} \right) \\
+               & \eqcom{2} \frac{1}{\left( -1 \right)^{2k} \cdot \rho_{2k, 2k-1}} \left( \sum_{i=1}^{2n} \rho_{2k,m} f_m - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \left( -1 \right)^m \cdot \rho_{2k, \sigma \left( m \right)} f'_{\sigma \left( m \right)} \right) \\
+               & \eqcom{3} \frac{1}{\rho_{2k, 2k-1}} \left( \sum_{i=1}^{2n} \rho_{2k,m} f_m - \sum \limits _{m=1}^{2k-2} \rho_{2k, m} f_{m} \right) \\
+               & \eqcom{4a} \frac{1}{\rho_{2k, 2k-1}} \left( \rho_{2k-2,2k-1} f_{2k-1} - \rho_{2k-2,2k} f_{2k} \right) = f_{2k-1}
+    \end{split}
+  \end{equation*}
+
+  \begin{equation*}
+    \begin{split}
+      f'_{2k} & \eqcom{1} e_{2k-1} - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \omega \left( e_{2k-1}, f'_m \right) f'_{\sigma \left( m \right)} \\
+              & \eqcom{2} \sum_{m=1}^{2n} \rho_{2k-1,i} f_m - \sum \limits _{m=1}^{2k-2} \left( -1 \right)^{m} \cdot \left( -1 \right)^m \cdot \rho_{2k-1, \sigma \left( m \right)} f'_{\sigma \left( m \right)} \\
+              & \eqcom{3} \sum_{m=1}^{2n} \rho_{2k-1,i} f_m - \sum \limits _{m=1}^{2k-2} \rho_{2k-1, m} f_{m} \\
+              & \eqcom{4b} \rho_{2k-1,2k-1} f_{2k-1} - \rho_{2k-1,2k} f_{2k} = f_{2k}
+    \end{split}
+  \end{equation*}
+  
+  Equality \circled{1} uses the recursion formula from \eqref{equation:basistosymp}. In the subtrahend of equality \circled{2} we apply the observation from section \ref{section:simplexclassification} that \( e_j = \sum_{i=1}^{2n} \rho_{j,i} f_i \) and for the minuend we used Lemma \ref{lemma:basistosymp:rho}. For equality \circled{3} we swapped the terms indexed with \( m \) and \( \sigma \left( m \right) \) in the right sum. In step \circled{4a} of the first equation we used that \( \rho_{2k-2,2k} = 0 \) and in step \circled{4b} of the second equation that \( \rho_{2k-1,2k-1} = 0 \) and \( \rho_{2k-1,2k} = 1 \).
+\end{proof}
+
+Now only the reverse direction is left to be shown:
+
+\begin{lemma}
+  Let \( e_1, \dots, e_{2n} \) be a basis of \( \mathbb{R}^{2n} \) with \( \forall k \leq n : \omega \left( e_1, \dots, e_{2k} \right) \neq 0 \).\\
+  Define \( f_1, \dots, f_{2n} \) by applying equation \eqref{equation:basistosymp} on the \( e_1, \dots, e_{2n} \), and \( e'_1, \dots, e'_{2n} \) by applying equation \eqref{equation:symptobase:vectors} with \( \nu_{i,j} = \omega \left( e_i, e_j \right) \).
+
+  Then \( e_i = e'_i \) for \( i \in \left\lbrace 1, \dots, 2n \right\rbrace \).
+\end{lemma}
+
+\begin{proof}
+  \begin{equation*}
+    e_j \eqcom{1} \sum \limits _{i = 1} ^{2n} \left( -1 \right)^{\sigma \left( i \right)} \omega \left( e_j, f_{\sigma \left( i \right)} \right) f_i \eqcom{2} \sum \limits _{i = 1} ^{2n} \limits \rho_{j,i} f_i \eqcom{3} e'_j
+  \end{equation*}
+  
+  In step \circled{1} we used Lemma \ref{lemma:displayinsymplecticbasis} to rewrite \( e_j \) as a linear combination of the \( f_i\). In the second equality \circled{2} we applied Lemma \ref{lemma:basistosymp:rho} and in equality \circled{3} we used equation \eqref{equation:eintermsofrhoandf} from section \ref{section:simplexclassification}.
+\end{proof}
+\end{document}
+

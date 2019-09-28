@@ -1,0 +1,257 @@
+\documentclass[12pt,a4paper]{scrartcl}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathabx}
+\usepackage{geometry}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[pdfpagelabels=true]{hyperref}
+\usepackage{lineno}
+\usepackage{paralist}
+
+\usepackage[pdftex,dvipsnames]{xcolor}
+\usepackage{xargs}
+\setlength{\marginparwidth}{3cm}
+\usepackage[colorinlistoftodos,prependcaption,textsize=small]{todonotes}
+
+\newcommandx{\info}[2][1=]{\todo[linecolor=Blue!80,backgroundcolor=Blue!15,bordercolor=Blue!80,#1]{#2}}
+\newcommandx{\reason}[2][1=]{\todo[linecolor=Yellow,backgroundcolor=Yellow!25,bordercolor=Yellow,#1]{#2}}
+\newcommandx{\warning}[2][1=]{\todo[linecolor=Red,backgroundcolor=Red!25,bordercolor=Red,#1]{#2}}
+\newcommandx{\timestamp}[2][1=]{\todo[linecolor=Green,backgroundcolor=Green!25,bordercolor=Green,#1]{#2}}
+
+\nonstopmode
+
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{note}[theorem]{Note}
+
+\geometry{a4paper, top=10mm, left=15mm, right=40mm, bottom=25mm, headsep=10mm, footskip=12mm}
+
+\hypersetup{unicode=false, pdftoolbar=true, pdfmenubar=true, pdffitwindow=false, pdfstartview={FitH},
+  pdftitle={Symplectic Classification of Simplices},
+  pdfauthor={Konstantin Fickel},
+  pdfsubject={Speaking Notes Bachelor Thesis},
+  pdfcreator={\LaTeX},
+  pdfproducer={pdfTeX \the\pdftexversion.\pdftexrevision},
+  pdfkeywords={Speaking Notes},
+  pdfnewwindow=true,
+  colorlinks=true,linkcolor=black,citecolor=black,filecolor=magenta,urlcolor=black}
+\pdfinfo{/CreationDate (D:20190909000000)}
+
+\title{Symplectic Classification of Simplices}
+\providecommand{\subtitle}[1]{}
+\subtitle{Bachelor Thesis Presentation}
+\author{Konstantin Fickel}
+\date{9th of September 2019}
+
+\begin{document}
+
+\maketitle{}
+
+\begin{abstract}
+  
+\end{abstract}
+
+\begingroup
+\linenumbers
+\modulolinenumbers[5]
+
+\section{Preparation}
+
+\info[inline]{Preparation: Write on left back blackboard}
+\[
+  \begin{array}{llr}
+    e_j^0 = 0 & & \textnormal{ for } j \in \left\lbrace 1, \dots, 2n \right\rbrace \\
+    e_j^i = e_j^{i-1} & & \textnormal{ for } i,j \in \left\lbrace 1, \dots, 2n \right\rbrace \textnormal{ and } i < j\\
+    e_j = e_j^j = \left\lbrace\begin{array}{lr}
+        e_j^{j-1} & \textnormal{ for } 2 \nmid j \\
+        e_j^{j-1} & \textnormal{ for } 2 \mid j
+    \end{array}\right. & & \textnormal{ for } j \in \left\lbrace 1, \dots, 2n \right\rbrace
+  \end{array}
+\]
+
+\[
+  \sigma \left( i \right) = \left\lbrace \begin{array}{lr}
+    2k-1 & \textnormal{ for } i = 2k \textnormal{ with } k \in \mathbb{N}\\
+    2k & \textnormal{ for } i = 2k-1 \textnormal{ with } k \in \mathbb{N}\\
+  \end{array} \right\rbrace = i - \left( -1 \right)^{i}
+\]
+
+\[
+  \nu_{1,2} \nu_{1,3} \nu_{1,4} \nu_{2,3} \nu_{2,4} \nu_{3,4}
+\]
+
+\section{Basics of Linear Symplectic Geometry}
+
+This Talk: Guided tour of main theorem of my bachelor thesis. First, some basics of linear symplectic geometry.
+
+\( \left( \mathbb{R}^{2n}, \omega \right) \)
+
+Standard Symplectic form: \( \omega = \sum\limits_{k=1}^{n} dx_{2k-1} \wedge dx_{2k} \)
+Property: skew-symmetry (swap arguments \( \Rightarrow \) minus)
+
+Symplectic basis: Is a basis of a vector space, basis vectors appear in pairs.
+
+Symplectic volume \( \int_{\Delta} \frac{\omega^k}{k!} \)
+
+Symplectic volume or area (2-dimensional case) can be negative, may change, when rotated. (Against classical concept of volume)
+
+\timestamp[inline]{3 minutes}
+
+Bigger context: Approximation symplectic manifolds by piecewise linear ones. Use of simplical complex. Know about simplex-properties, thesis about one specific problem:
+
+\begin{itemize}
+  \item Two two-simplices in \( \mathbb{R}^2 \) 
+  \item equal up to linear symplectomorphism
+  \item if their areas coincide. And for every given area we can find a triangle with that symplectic area.
+  \item Add two dimensions, now we have four-simplices. Drawing becomes tricky. What's the condition here?
+  \item Note by Cieliebak and Hofer.
+  \item If area of all two-dimensional subsimplices coincides. So this.
+  \item Adjacent area, this. And all others. Other direction: If some simple conditions are fulfilled and we recieve the size of the areas of the sides, we can construct such a simplex.
+  \item How about higher dimensions? Getting in trouble with drawing here? How does this generalize to six dimensions?
+  \item Or \( 2n \) dimesions?
+  \item Stick with symbols here.
+  \item This was the question my bachelor thesis answers.
+\end{itemize}
+
+Topic of the talk, now I can write this down: \textsc{Symplectic classification of simplices}
+
+\timestamp[inline]{6 minutes}
+
+\section{The Theorems}
+
+Destroy the tension immediatly I built up:
+
+\begin{theorem}
+  Given numbers \( \omega_{i,j,k} \in \mathbb{R} \), \( 0 \leq i < j < k \leq 2n \) satisfying equation (3) and (4)
+  \info[inline]{Talk about those conditions in a second, first finish the theorem}
+  \info[inline]{3: sides have to fit together\\4: total simplex non-empty}
+  there exists a simplex \( \Delta \subset \mathbb{R}^{2n} \), whose two-dimensional faces have areas \( \int_{\Delta_{i,j,k}} \omega = \omega_{i,j,k} \)\\
+  This simplex is unique up to affine symplectomorphism.
+\end{theorem}
+
+\info[inline]{Back to slides!}
+So we will now talk about those two conditions: First one:
+
+\begin{itemize}
+  \item \( 3 \)-simpleces, subsimplex of our \( 2n \)-simplex.
+  \item enumerate its corners.
+  \item Introduce it's edges, \( v_i - v_0 \). Will be notation throughout this talk.
+  \item Area spanned by verticies \( v_0 \), \( v_1 \) and \( v_2 \): \( \omega_{0,1,2} \)
+\end{itemize}
+
+Think about outer areas: Write on blackboard:
+\( \int_{\partial\Delta} \omega = \int_\Delta d \omega = 0 \)
+
+\begin{itemize}
+  \item Orientation of those areas
+  \item Disassemble into 2-simplices.
+  \item Those areas here:
+  \item By the insight on the blackboard, their sum is \( 0 \), so that
+  \item Swap order of edges and therefore the sign.
+  \item We can fix one edge \( v_0 \) for whole \( 2n \)-simplex. Then the area of all simplices non-containing \( v_0 \) is dependent on other areas. For those simplices to fit together, this condition is condition (3).
+  \item Too many combinatorical factors, only calculations with \( v_0 \)-areas: Introduce new variable:
+  \item \( \nu_{i,j} \), area of the paralellepiped spanned by \( e_i, e_j \).\\
+    add on blackboard: \( \nu_{i_1,\dots,i_k} = \frac{1}{k!} \cdot \omega \left( e_{i_1}, \dots, e_{i_{2k}} \right) \)
+  \item \( \int_{\Delta} \frac{\omega^k}{k!} = \frac{1}{\left( 2k \right) !} \cdot \frac{1}{k!} \cdot \omega \left( e_{i_1}, \dots, e_{i_{2k}} \right) \)
+  \item Can easily be calculated using omega.
+\end{itemize}
+
+\begin{itemize}
+  \item \( 3 \)-simplices, subsimplex of our \( 2n \)-simplex.
+  \item enumerate its corners.
+  \item Introduce it's edges, \( v_i - v_0 \). Will be notation throughout this talk.
+  \item Area spanned by verticies \( v_0 \), \( v_1 \) and \( v_2 \): \( \omega_{0,1,2} \)
+\end{itemize}
+
+Second condition (4) was the following:
+
+\begin{itemize}
+  \item Volume of spat containing simplex non-zero, generalization of \( \nu \) for 2-vectors
+  \item Definition of \( \nu \)
+  \item Break this inductively by definition down into sum of product of \( \omega \left( \bullet, \bullet \right) \)
+  \item Definition of \( \nu \) again!
+\end{itemize}
+
+So now two conditions are set.
+
+Can be easily reduced to following theorem, only look at edges:
+
+\begin{theorem}
+  For \( \nu_{i,j} \in \mathbb{R} \), \( 1 \leq i < j \leq 2n \) satisfying equation (3), there exists a basis \( e_1, \dots, e_{2n} \) of \( \mathbb{R}^{2n} \) with \( \omega \left( e_i, e_j \right) = \nu_{i,j} \).
+  This basis is unique up to linear symplectomorphism.
+\end{theorem}
+
+Uniqueness simple, define linear map mapping one basis vector one one simplex to other, since the the values of \( \omega \) coincide on basis, \( \omega \) is equal, so symplectomorphic. More exciting: Existence.
+
+\timestamp[inline]{10 minutes}
+
+\section{The Recursion Formula}
+
+To prove the existence, the best way is to give a formula to calculate vectors of this kind. So we devolop this formula now together:
+
+\begin{itemize}
+  \item[\( f_1, f_2 \)] first symplectic base pair
+  \item[\( f_3 \)] red third dimension
+  \item[\( f_4 \)] symplectic base pair together with \( f_3 \), blue dimension.
+  \item Keep symplectic basis for reference
+  \item[\(e_1\)] \( f_2 \), because \( 0 \) would be wrong
+  \item[\(e_2 = f_1\)] 
+  \item[\(\nu_{1,2}\)] Adjust length of vector, draw \( f_i \cdot \nu_{j,i} \) in formula on blackboard. Done with \( e_2 \).
+  \item[\(\nu_{1,3}\)] 
+  \item[\(\nu_{2,3}\)] , draw \( \frac{1}{\omega\left( e_i, f_i \right)} \) in formula on blackboard.
+  \item[\(+f_4\)] Write \( + f_{\sigma\left(j\right)}\) into fomula on blackboard
+  \item[\(\nu_{1,4}\)] 
+  \item[\(\nu_{2,4}\)] 
+  \item[\(\nu_{3,4}\)] actually somehow in third dimesion. When using this state of \( e_4 \): \( \omega \left( e_3, e_4 \right) \neq 0 \), have to consider this. Draw \( - \omega \left( e_i, e_j^{i-1} \right) \) in formula.
+  \item First four vectors, with our general formula we can go on further until \( 2n \)
+\end{itemize}
+
+\timestamp[inline]{14 minutes}
+
+Circle \( \omega\left( e_i, f_i \right) \) on blackboard.
+This was the rather easy part of my work, problem was to prove, that this formula is defined:
+
+Write on Blackboard: \( e_j = \sum_{i=1}^{2n} \rho_{j,i} \cdot f_i \). Want to know those factors.
+
+\( \rho_{j,i} \) is set when adjusting the \( i \) th value for vector \( e_j \). Extract those values, and determine their values: The problematic divisor in this formula is this: \( \rho_{i, \sigma \left( i \right)} \).
+
+Now calculated sample values and found out that they can be displayed as quotiens of sumsimplices, with only simplices of the form \( \nu_{1,2,3,4} \) in the divisor.
+
+Especially: The wanted \( \rho_{i, \sigma \left( i \right)} \) are either 1 or a quotient of the volume spanned by the first \( 2k \) vectors of the basis.
+
+\timestamp[inline]{17 minutes}
+
+\section{Reordering Lemma}
+
+So for this formula to be defined:
+
+\begin{itemize}
+  \item \( \nu_{1,2} \neq 0 \)
+  \item Same for all volumes spanned by the first \( 2k \) vectors of the basis. Do we need all of them?
+  \item Higher-dimensional paralellepiped-volume non-zero
+  \item Definition of exponent
+  \item Definition of wedge-product
+  \item For one permutation nonzero, by swapping vectors, this can be accomplished.
+  \item Can omit \( 2n-2 \)
+  \item Inductively \( 2n-4 \)
+  \item All the lower ones.
+\end{itemize}
+
+That's why it is enough for the top-dimensional simplex to be non-zero!
+
+So now we can find a basis realizing given \( \nu_{i,j} \), so exisitence is done, which proves our first, and therefore our second theorem, too!
+
+\timestamp[inline]{20 minutes}
+
+\endgroup
+\end{document}
+

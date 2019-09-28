@@ -1,0 +1,159 @@
+\documentclass[a4paper,bibliography=totocnumbered,listof=totocnumbered]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage[style=alphabetic]{biblatex}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage[pdfpagelabels=true]{hyperref}
+\usepackage{setspace}
+\usepackage{subfig}
+\usepackage{subfiles}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix,patterns}
+\usepackage[customcolors,norndcorners]{hf-tikz}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\newcommand*\eqcom[1]{\stackrel{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1.5pt] (char) {\tiny{#1}};}}{=}}
+\newcommand*\lracom[1]{\stackrel{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1.5pt] (char) {\tiny{#1}};}}{\Leftrightarrow}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\addbibresource{bibliography/sources.bib}
+
+\raggedbottom
+\allowdisplaybreaks
+
+\geometry{a4paper, top=27mm, left=27mm, right=18mm, bottom=35mm, headsep=10mm, footskip=12mm}
+
+\hypersetup{unicode=false, pdftoolbar=true, pdfmenubar=true, pdffitwindow=false, pdfstartview={FitH},
+  pdftitle={Classification of Symplectic Simplices},
+  pdfauthor={Konstantin Fickel},
+  pdfsubject={Bachelor Thesis - Classification of Symplectic Simplices},
+  pdfcreator={\LaTeX},
+  pdfproducer={pdfTeX \the\pdftexversion.\pdftexrevision},
+  pdfkeywords={bachelor thesis},
+  pdfnewwindow=true,
+  colorlinks=true,linkcolor=black,citecolor=black,filecolor=magenta,urlcolor=black}
+\pdfinfo{/CreationDate (D:20190927000000)}
+
+\begin{document}
+
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\renewcommand{\leftmark}{\rightmark}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{\thesection\space\contentsname}
+\lfoot{Classification of Linear Symplectic Simplices}
+\cfoot{}
+\rfoot{\ \linebreak Page \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\theHsection}{\Roman{section}}
+\pagenumbering{Roman}
+
+\thispagestyle{empty}
+\begin{center}
+  \includegraphics[scale=0.22]{img/common/unia.pdf}\\
+  \vspace*{2cm}
+  \Large{\textbf{Department of}\\
+  \textbf{Mathematics}}\\
+  \vspace*{1.5cm}
+  \includegraphics[width=8cm]{img/cover/00.pdf}\\
+  \vspace*{1.5cm}
+  \Large{\textbf{Bachelor Thesis}}\\
+  \vspace*{0.5cm}
+  \large{about the topic}\\
+  \vspace*{0.5cm}
+  \huge{\textbf{Classification of Symplectic Simplices}}\\
+  \vfill{}
+  \normalsize
+  \newcolumntype{x}[1]{>{\raggedleft\arraybackslash\hspace{0pt}}p{#1}}
+  \begin{tabular}{x{3.5cm}p{7cm}}
+    \rule{0mm}{5ex}\textbf{author:}          & Konstantin Fickel\newline \url{https://konstantinfickel.de} \\
+    \rule{0mm}{5ex}\textbf{supervisor:}      & Prof. Dr. Kai Cieliebak                            \\
+    \rule{0mm}{5ex}\textbf{submission date:} & 27th of September 2019                              \\
+    \rule{0mm}{5ex}\textbf{license:}         & CC BY-SA 4.0                                       \\
+  \end{tabular}
+\end{center}
+\pagebreak{}
+
+\setcounter{page}{1}
+% \onehalfspacing
+
+\pagebreak
+
+\singlespacing
+\rhead{TABLE OF CONTENTS}
+\renewcommand{\contentsname}{Table of Contents}
+\phantomsection
+\addtocounter{section}{1}
+\tableofcontents
+\pagebreak
+
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\renewcommand{\subsectionmark}[1]{}
+\renewcommand{\subsubsectionmark}[1]{}
+\rhead{\rightmark}
+
+\singlespacing
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\theHsection}{\arabic{section}}
+\pagenumbering{arabic}
+\lhead{Chapter \thesection}
+
+\onehalfspacing
+\setcounter{page}{1}
+\setcounter{section}{0}
+\subfile{tex/00_abstract.tex}
+
+\subfile{tex/01_introduction.tex}
+\pagebreak{}
+\subfile{tex/02_symplecticgeometry.tex}
+\pagebreak{}
+\subfile{tex/03_symplecticarea.tex}
+\pagebreak{}
+\subfile{tex/04_simplexclassification.tex}
+\pagebreak{}
+
+\appendix
+
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\lhead{Appendix \thesection}
+\section*{Appendix}
+\phantomsection
+\addcontentsline{toc}{section}{Appendix}
+
+\subfile{tex/05_appendix/01_determinant.tex}
+\pagebreak{}
+\subfile{tex/05_appendix/02_independent.tex}
+\pagebreak{}
+\subfile{tex/05_appendix/03_inverse.tex}
+\pagebreak{}
+
+\setcounter{biburllcpenalty}{5000}
+\setcounter{biburlucpenalty}{6000}
+\setcounter{biburlnumpenalty}{6000}
+
+\lhead{References}
+\rhead{}
+
+\addcontentsline{toc}{section}{References}
+\section*{References}
+\printbibliography[heading=none]
+
+\end{document}
+

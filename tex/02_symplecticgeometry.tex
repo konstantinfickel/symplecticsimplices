@@ -1,0 +1,65 @@
+\documentclass[../SymplecticSimplices.tex]{subfiles}
+
+\begin{document}
+\section{Linear Symplectic Geometry}
+
+In this introductory section, we will first introduce the basics of linear symplectic geometry, namely symplectic vector spaces and linear symplectomorphisms. The lemmas and definitions of this section follow the beginning of the second chapter of “Introduction to symplectic topology” by Dusa McDuff and Dietmar Salamon \cite{mcduff} and the first chapter of the “Lectures on Symplectic Geometry” by Ana Cannas da Silva \cite{dasilva}.
+
+Let \( V \) be an \( \mathbb{R} \)-vectorspace, which we equip with a bilinear form \( \omega \colon V \times V \rightarrow \mathbb{R} \) with the following properties:
+
+\begin{itemize}
+  \item[] \textit{(nondegeneracy)}: For all vectors \( v \in V \setminus \left\lbrace 0 \right\rbrace \) there is a vector \( w \in V \) such that \( \omega \left( v, w \right) \neq 0 \)
+  \item[] \textit{(skew-symmetry)}: For all vectors \( v, w \in V \): \( \omega \left( v, w \right) = - \omega \left( w, v \right) \)
+\end{itemize}
+
+Together they form the \textit{symplectic vector space} \( \left( V, \omega \right) \). Because of those conditions on \( \omega \) symplectic vector spaces always have an even dimension, so that we can define \( \textnormal{dim} \left( V \right) = \colon 2n \). The reason for this will be highlighted later this section after the proof of Lemma \ref{lemma:symplecticbasis}.
+
+Let \( W \subseteq V \) be a subspace of \( V \), for which we define its \textit{symplectic complement} as \( W^\omega = \left\lbrace w \in V \mid \forall v \in W \colon \omega\left( v, w \right) = 0 \right\rbrace \). A subspace \( W \subseteq V \) is called a \textit{symplectic subspace} if \( W \cap W^{\omega} = \emptyset \). The next Lemma is taken from \cite[Lemma 2.2]{mcduff} and implies that \( W^\omega \) is a symplectic subspace if and only if \( W \) is a symplectic subspace:
+
+\begin{lemma}
+  \label{lemma:symplecticcomplementofsymplecticcomplement}
+  Let \( W \subseteq V \) be a subspace. Then:
+  \begin{enumerate}
+    \item \( \textnormal{dim} \left( W \right) + \textnormal{dim} \left( W^\omega \right) = \textnormal{dim} \left( V \right) \)
+    \item \( \left( W^\omega \right)^\omega = W \)
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  The map \( \iota \colon V \rightarrow \left( V \right)^\ast, v \mapsto \omega \left( v, \bullet \right) \) is an isomorphism because \( \omega \) is nondegenerate. It identifies \( W^\omega \) with the annihilator \( W^\bot = \left\lbrace f \in V^\ast \mid \forall v \in W: f \left( v \right) = 0 \right\rbrace \) of \( W \), from which the second statement follows because \( \left( W^\bot \right)^\bot = W \) when identifying \( \left( V^\ast \right)^\ast \) with \( V \).\\
+  The first statement can be deduced from the fact that \( \textnormal{dim} \left( W \right) + \textnormal{dim} \left( W^\bot \right) = \textnormal{dim} \left( V \right) \) (which is shown for example in \cite[Page 333]{fischer}).
+\end{proof}
+
+A basis \( f_1, \dots, f_{2n} \) of \( V \) is called a \textit{symplectic basis} if: 
+\begin{align*}
+  \omega \left( f_i, f_j \right) =
+  \left\lbrace
+  \begin{array}{llr}
+    1 && \textnormal{ for } i = 2k - 1 \textnormal{ and } j = 2k \textnormal{ with } k \in \left\lbrace 1, \dots, 2n \right\rbrace \\
+    -1 && \textnormal{ for } i = 2k \textnormal{ and } j = 2k - 1 \textnormal{ with } k \in \left\lbrace 1, \dots, 2n \right\rbrace \\
+    0 && \textnormal{ otherwise }
+  \end{array}
+  \right.
+\end{align*}
+
+The next lemma will show that all bases can be transformed into symplectic bases only using some operation that don't break a certain type of equalities, which will become useful in later sections. The basic idea of this proof is very similar to the Gram-Schmidt process:
+
+\begin{lemma}
+  \label{lemma:symplecticbasis}
+  Let \( e_1, \dots, e_{2k} \) be a basis of a symplectic subspace \( W \) of \( V \).\\
+  Then this basis can be transformed into a symplectic basis by swapping vectors (\( e'_i = e_j \) and \(e'_j = e_i\)), scaling (\( e'_i = \lambda \cdot e_i \) for \( \lambda \in \mathbb{R} \setminus \left\lbrace 0 \right\rbrace \)) and addition (\( e'_i = e_i + \lambda \cdot e_j\) for \(  \lambda \in \mathbb{R} \)).
+\end{lemma}
+
+\begin{proof}
+  Since \( W = \left< e_1, \dots, e_{2k} \right> \) is symplectic, there exist two basis vectors \( e_i \) and \( e_j \) such that \( \omega \left( e_i, e_j \right) \neq 0 \). Rename the vectors so that they are called \( e_1 \) and \( e_2 \).\\
+  Set \( e'_1 = e_1 \), \( e'_2 = \frac{e_2}{\omega \left( e_1, e_2 \right)} \), and \( e'_m = e_m - \omega \left( e_1, e_m \right) \cdot e_1 - \omega \left( e_2, e_m \right) \cdot e_2 \) for \( m \in \left\lbrace 3, \dots, 2k \right\rbrace \).\\
+  Then \( e'_3, \dots, e'_{2k} \) is a basis of \( \left<e_1, e_2\right>^{\omega} \cap W \), because they are still linearly independent, span a vector space with the same dimension and all lie within \( \left<e_1, e_2\right>^{\omega} \cap W \). We can now repeat this procedure for \( \left< e'_3, \dots, e'_{2k} \right> \), which by Lemma \ref{lemma:symplecticcomplementofsymplecticcomplement} is a symplectic vector-space again, until there are no vectors left.
+\end{proof}
+
+We can see from the proof that every symplectic subspace is even-dimensional, because an additional basis vector \( e_{2k+1} \) would be left over after the process and \( e'_{2k+1} \in \left< e'_1, \dots, e'_{2k} \right>^\omega \cap \left< e_1, \dots, e_{2k}, e_{2k+1} \right>\) implying that \( 0 \neq e'_{2k+1} \in \left< e'_1, \dots, e'_{2k}, e'_{2k+1} \right>^\omega \cap \left< e_1, \dots, e_{2k}, e_{2k+1} \right> = W^\omega \cap W \), which is a contraction to the space being symplectic. Because \( \omega \) is non-degnerate, \( V \) itself is a symplectic subspace of \( V \) -- so this observation applies here aswell.
+
+A \textit{linear symplectomorpism} is a linear map \( \phi: V \rightarrow V' \) from a symplectic vector space \( \left( V, \omega \right) \) to another symplectic vector space \( \left( V', \omega' \right) \) that preserves the symplectic form, i.e. for every pair of vectors \( u, v \in V \) it holds that \( \phi^\ast \omega \left( u, v \right) = \omega \left( \phi \left( u \right), \phi \left( v \right) \right) = \omega \left( u, v \right) \). An \textit{affine symplectomorphism} \( \psi: V \rightarrow V' \) is a linear symplectomorphism with additional translation; it can be written in the form \( \psi \left( x \right) = v + \phi \left( x \right) \) with \( \phi \) being a symplectomorphism and \( v \in V' \).
+
+In this thesis we will only consider the \textit{prototype of a symplectic vector space} \( V = \mathbb{R}^{2n} \), which is equipped with the \textit{standard symplectic form} \( \omega = \sum\limits_{k=1}^{n} dx_{2k-1} \wedge dx_{2k} \). The \textit{standard symplectic basis} of \( \mathbb{R}^{2n} \) is \( \left( f^{\textnormal{st}}_i \right)_{i \in \left\lbrace 1, \dots, 2n \right\rbrace} \) with \( f^{\textnormal{st}}_i \in \mathbb{R}^{2n} \) consiting of an \( 1 \) as the \( i \)th entry and \( 0 \)s in all others. This is no constraint, since every symplectic vector space \( \left( V', \omega' \right) \) is linearly symplectomorphic to some \( \mathbb{R}^{2n} \) together with the standard symplectic form \( \omega \) by a symplectomorphism determined by the choice of a symplectic basis of \( V' \).
+\end{document}
+

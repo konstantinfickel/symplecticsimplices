@@ -1,0 +1,352 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 18.02.0 ] */
+/* [wxMaxima: input   start ] */
+ ;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: title   start ]
+Symplectic classification of simplices
+   [wxMaxima: title   end   ] */
+
+
+/* [wxMaxima: section start ]
+The recursive formula for the ρ(i,j)
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Implementation of ρ
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sigma(j):=j-(-1)^j;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+rho(j,i):=block(
+    if (mod(j,2)=1 and i=j+1) then return (1),
+    if (i>=j) then return (0),
+    return (( ((-1)^i)/rho(i,sigma(i))) *(w_[i,j] - sum(((-1)^k)*(rho(j,k)*rho(i,sigma(k))),k,1,i-1)))
+);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: subsect start ]
+Testing the implementation
+   [wxMaxima: subsect end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(ratsimp(rho(4,3)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+omegaOfEiEj(i,j):=ratsimp(sum(((-1)^(k+1))*(rho(i,k)*rho(j,sigma(k))),k,1,max(i,j)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+omegaOfEiEj(1,2);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+The matrix Ω
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: comment start ]
+Tests for Appendix A.
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+omega[i,j] := block(
+  if(i=j) then return (0),
+  if(i>j) then return (-w_[j,i]),
+  if(j>i) then return (w_[i,j])
+);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Omega(n):=genmatrix(omega, 2*n, 2*n);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(determinant(Omega(2)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Omega(2);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Degeneracy of ω^n
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: comment start ]
+Preparations for Lemma 3.3.
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+load("combinatorics")
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+perm_sgn(x):=1-perm_parity(x)*2;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wedgetothepowerof(n):=1/(2**n)*lsum(perm_sgn(p)*product(omega[p[2*i-1],p[2*i]],i,1,n),p,perms(2*n));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+nondegcondition(n):=1/(factorial(n))*wedgetothepowerof(n);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(nondegcondition(3));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+ρ(2n,2n-1) is quotent of two simplices
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: comment start ]
+In this part I tried to find out if the rho(2n,2n-1) have the form described in lemma 4.1.
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+testhypothesis(n):=block(if(ratsimp(rho(2*n,2*n-1)*nondegcondition(n-1)+nondegcondition(n))=0) then return (true) else return (false));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+testhypothesis(3);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Wedge-Theorem
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: comment start ]
+Preparations for Lemma 3.3.
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+volumeofsifinalmplex(edges):=ratsimp(1/((2**(length(edges)/2))*factorial(length(edges)/2))*lsum(perm_sgn(p)*product(omega[permute(p, edges)[2*i-1],permute(p, edges)[2*i]],i,1,length(edges)/2),p,perms(length(edges))));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+leftsideofwedgetheorem(edges):=ratsimp(
+volumeofsimplex(append(firstn(edges, length(edges) - 4), [edges[length(edges)-3],edges[length(edges)-2]]))*
+volumeofsimplex(append(firstn(edges, length(edges) - 4), [edges[length(edges)-1],edges[length(edges)-0]]))-
+volumeofsimplex(append(firstn(edges, length(edges) - 4), [edges[length(edges)-3],edges[length(edges)-1]]))*
+volumeofsimplex(append(firstn(edges, length(edges) - 4), [edges[length(edges)-2],edges[length(edges)-0]]))+
+volumeofsimplex(append(firstn(edges, length(edges) - 4), [edges[length(edges)-3],edges[length(edges)-0]]))*
+volumeofsimplex(append(firstn(edges, length(edges) - 4), [edges[length(edges)-2],edges[length(edges)-1]])));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+testwedgetheorem(list) := block(if (ratsimp(leftsideofwedgetheorem(list)-volumeofsimplex(firstn(list, length(list) - 4))*volumeofsimplex(list))  = 0) then return (true) else return (false));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+testwedgetheorem([1,2,3,4,5,6  ]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+The pertubation-theorem
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: comment start ]
+This was the first attempt towards applying pertubations to make a simplex fulfill non-degeneracy conditions.
+It didn't make it into the bachelor's thesis.
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+load("linearalgebra");
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+eVariables(n) := list_matrix_entries(genmatrix(lambda([i,j], e_[i,j]), 2*n, 2*n));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+omegaOfEiEjByEntries(i,j,n) := (sum(((-1)^(k+1))*(e_[i,k]*e_[j,sigma(k)]),k,1,2*n));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+replacementsForWij(n) :=
+delete(
+    0,
+    list_matrix_entries(
+        genmatrix(
+            lambda([i,j],
+                block(
+                    if (i>=j) then return (0),
+                    return (w_[i,j]=omegaOfEiEjByEntries(i,j,n))
+                )
+            ),
+            2*n, 2*n
+        )
+    )
+);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+nondegconditionForEij(k, n) := expand(ratsimp(subst(replacementsForWij(n), nondegcondition(k))));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+additionalConditions(n):=makelist(nondegconditionForEij(i,n),i,2,n);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+F(n) :=
+delete(
+    0,
+    list_matrix_entries(
+        genmatrix(
+            lambda([i,j],
+                block(
+                    if (i>=j) then return (0),
+                    return (omegaOfEiEjByEntries(i,j,n))
+                )
+            ),
+            2*n, 2*n
+        )
+    )
+);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+DF(n):=jacobian(append(F(n),additionalConditions(n)), eVariables(n));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+basisCondition(n) := expand(ratsimp(determinant(genmatrix(lambda([i,j], e_[i,j]), 2*n, 2*n))));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+DF(2);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+basisCondition(2);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Random calculations
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+testfunction(n, k) := expand(ratsimp(alpha(2*n,k)*alpha(2*n-1,sigma(k))));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(ratsimp(alpha(8,6)*nondegcondition(3)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+testfunction2(n):=_[2*n-1,2*n] - sum(((-1)^k)*(testfunction(n,k)),k,1,2*n-2);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(ratsimp(w_[5,6]*nondegcondition(2)*nondegcondition(1)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(ratsimp(testfunction(3,1)*nondegcondition(2)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(ratsimp(testfunction(3,2)*nondegcondition(2)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(ratsimp(testfunction(3,3)*nondegcondition(2)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(ratsimp(testfunction(3,4)*nondegcondition(2)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(ratsimp(testfunction2(2)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(ratsimp(nondegcondition(2)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+symplecticNormalformMatrix[i,j]:=block(
+    if (i=j+1) then return (-1),
+    if (j=i+1) then return (1),
+    return (0)
+);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+determinant(genmatrix(symplecticNormalformMatrix, 6, 6));
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 18.02.0"$

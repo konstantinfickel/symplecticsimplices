@@ -1,0 +1,41 @@
+\documentclass[../SymplecticSimplices.tex]{subfiles}
+
+\begin{document}
+\section{Amount of equations for 2-dimensional areas}
+\label{appendix:equationamount}
+
+In this section of the appendix we will prove the combinatorical factors mentioned for equation \eqref{equation:3simplexzero} in section \ref{section:simplexclassification}. So consider for a \( 2n \)-simplex \( \Delta \) the following set of equations with \( 0 \leq i_0 < i_1 < i_2 < i_3 \leq 2n \):
+
+\begin{equation*}
+  \omega_{i_0, i_1, i_2} - \omega_{i_0, i_1, i_3} + \omega_{i_0, i_2, i_3} - \omega_{i_1, i_2, i_3} = 0
+\end{equation*}
+
+There are \( \binom{2n+1}{4} \) such equations, because for every equation out of the \( 2n+1 \) vertices of \( \Delta \) four vertices defining the 3-simplex are selected.
+
+To find the amount of linearly independent equations among those, consider the following: Every area \( \omega_{i_1, i_2, i_3} \) with \( 0 < i_1 < i_2 < i_3 \leq 2n \) can be written as a sum of \( \omega_{0, \bullet, \bullet} \) using instances of our equation:
+
+\begin{equation*}
+  \omega_{i_1, i_2, i_3} = \omega_{0, i_1, i_2} - \omega_{0, i_1, i_3} + \omega_{0, i_2, i_3}
+\end{equation*}
+
+There are \( \binom{2n}{3} \) such equations, because \( \left\lbrace i_1, i_2, i_3 \right\rbrace \) is an subset of three distinct elements of \( \left\lbrace 1, \dots, 2n \right\rbrace \). Those \( \binom{2n}{3} \) are linearly independent, because every \( \omega_{i_1, i_2, i_3} \) with \( 0 < i_1 < i_2 < i_3 \leq 2n \) only appears in one of them.
+
+All other equations (the ones for a 3-simplex not containing \( v_0 \), i.e. for \( 0 < i_0 < i_1 < i_2 < i_3 \leq 2n \)) can be written as a linear combination of the other equations, because for the equations
+
+\begin{align}
+  \omega_{i_0, i_1, i_2} & = \omega_{0, i_0, i_1} - \omega_{0, i_0, i_2} + \omega_{0, i_1, i_2} \label{equation:equationamount:1}\\
+  \omega_{i_0, i_1, i_3} & = \omega_{0, i_0, i_1} - \omega_{0, i_0, i_3} + \omega_{0, i_1, i_3} \label{equation:equationamount:2}\\
+  \omega_{i_0, i_2, i_3} & = \omega_{0, i_0, i_2} - \omega_{0, i_0, i_3} + \omega_{0, i_2, i_3} \label{equation:equationamount:3}\\
+  \omega_{i_1, i_2, i_3} & = \omega_{0, i_1, i_2} - \omega_{0, i_1, i_3} + \omega_{0, i_2, i_3} \label{equation:equationamount:4}
+\end{align}
+
+we can consider the sum \( \eqref{equation:equationamount:1} - \eqref{equation:equationamount:2} + \eqref{equation:equationamount:3} - \eqref{equation:equationamount:4} \):
+
+\begin{equation*}
+  \begin{split}
+   \omega_{i_0, i_1, i_2} - \omega_{i_0, i_1, i_3} + \omega_{i_0, i_2, i_3} - \omega_{i_1, i_2, i_3} & = \left( \omega_{0, i_0, i_1} - \omega_{0, i_0, i_2} + \omega_{0, i_1, i_2} \right) \\ & - \left(\omega_{0, i_0, i_1} - \omega_{0, i_0, i_3} + \omega_{0, i_1, i_3} \right) \\ & + \left( \omega_{0, i_0, i_2} - \omega_{0, i_0, i_3} + \omega_{0, i_2, i_3} \right) \\ & - \left( \omega_{0, i_1, i_2} - \omega_{0, i_1, i_3} + \omega_{0, i_2, i_3} \right)
+   \\ & = 0
+  \end{split}
+\end{equation*}
+\end{document}
+
